@@ -1,2 +1,2 @@
 # Roulette
-Casino roulette game simulation to analyse different betting strategies.
+Casino roulette game simulation to analyze different betting strategies.
