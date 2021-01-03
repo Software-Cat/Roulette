@@ -25,6 +25,7 @@
 package io.github.softwarecat;
 
 import java.text.MessageFormat;
+import java.util.Set;
 
 public class BinBuilder {
 
@@ -51,12 +52,132 @@ public class BinBuilder {
         wheel.addOutcome(37, new Outcome("00", Game.STRAIGHT_BET_PAYOUT));
 
         // Split Bets
-        for (int row = 0; row < 12; row++) {
-            int n = 3 * row + 1;
-            Outcome outcome = new Outcome(
+
+        // Left-Right
+        for (int r = 0; r < 12; r++) {
+            // First-Second column numbers
+            int n = 3 * r + 1;
+            Outcome split = new Outcome(
                     MessageFormat.format(Game.LABELS.getString("split"), String.format(" %d-%d", n, n + 1)),
                     Game.SPLIT_BET_PAYOUT);
+            wheel.addOutcome(n, split);
+            wheel.addOutcome(n + 1, split);
 
+            // Second-Third column numbers
+            n = 3 * r + 2;
+            split = new Outcome(
+                    MessageFormat.format(Game.LABELS.getString("split"), String.format(" %d-%d", n, n + 1)),
+                    Game.SPLIT_BET_PAYOUT);
+            wheel.addOutcome(n, split);
+            wheel.addOutcome(n + 1, split);
+        }
+
+        // Up-Down
+        for (int n = 1; n < 34; n++) {
+            Outcome split = new Outcome(
+                    MessageFormat.format(Game.LABELS.getString("split"), String.format(" %d-%d", n, n + 3)),
+                    Game.SPLIT_BET_PAYOUT);
+            wheel.addOutcome(n, split);
+            wheel.addOutcome(n + 3, split);
+        }
+
+        // Street Bets
+        for (int r = 0; r < 12; r++) {
+            int n = 3 * r + 1;
+            Outcome street = new Outcome(
+                    MessageFormat.format(Game.LABELS.getString("street"), String.format(" %d-%d-%d", n, n + 1, n + 2)),
+                    Game.STREET_BET_PAYOUT);
+            wheel.addOutcome(n, street);
+            wheel.addOutcome(n + 1, street);
+            wheel.addOutcome(n + 2, street);
+        }
+
+        // Corner Bets
+        for (int r = 0; r < 11; r++) {
+            // Column 1-2 Corner
+            int n = 3 * r + 1;
+            Outcome corner = new Outcome(
+                    MessageFormat.format(Game.LABELS.getString("corner"), String.format(" %d-%d-%d-%d", n, n + 1, n + 3, n + 4)),
+                    Game.CORNER_BET_PAYOUT);
+            wheel.addOutcome(n, corner);
+            wheel.addOutcome(n + 1, corner);
+            wheel.addOutcome(n + 3, corner);
+            wheel.addOutcome(n + 4, corner);
+
+            // Column 2-3 Corner
+            n = 3 * r + 2;
+            corner = new Outcome(
+                    MessageFormat.format(Game.LABELS.getString("corner"), String.format(" %d-%d-%d-%d", n, n + 1, n + 3, n + 4)),
+                    Game.CORNER_BET_PAYOUT);
+            wheel.addOutcome(n, corner);
+            wheel.addOutcome(n + 1, corner);
+            wheel.addOutcome(n + 3, corner);
+            wheel.addOutcome(n + 4, corner);
+        }
+
+        // Line Bets
+        for (int r = 0; r < 11; r++) {
+            int n = 3 * r + 1;
+            Outcome line = new Outcome(
+                    MessageFormat.format(Game.LABELS.getString("line"), String.format(" %d-%d-%d-%d-%d-%d", n, n + 1, n + 2, n + 3, n + 4, n + 5)),
+                    Game.LINE_BET_PAYOUT);
+            wheel.addOutcome(n, line);
+            wheel.addOutcome(n + 1, line);
+            wheel.addOutcome(n + 2, line);
+            wheel.addOutcome(n + 3, line);
+            wheel.addOutcome(n + 4, line);
+            wheel.addOutcome(n + 5, line);
+        }
+
+        // Dozen Bets
+        for (int d = 0; d < 3; d++) {
+            Outcome dozen = new Outcome(
+                    MessageFormat.format(Game.LABELS.getString("dozen"), String.format(" %d", d + 1)),
+                    Game.DOZEN_BET_PAYOUT);
+            for (int m = 0; m < 12; m++) {
+                wheel.addOutcome(12 * d + m + 1, dozen);
+            }
+        }
+
+        // Column Bets
+        for (int c = 0; c < 3; c++) {
+            Outcome column = new Outcome(
+                    MessageFormat.format(Game.LABELS.getString("column"), String.format(" %d", c + 1)),
+                    Game.COLUMN_BET_PAYOUT);
+            for (int r = 0; r < 12; r++) {
+                wheel.addOutcome(3 * r + c + 1, column);
+            }
+        }
+
+        // Even-Money Bets
+        for (int n = 1; n < 37; n++) {
+            Outcome red = new Outcome("Red", Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome black = new Outcome("Black", Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome even = new Outcome("Even", Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome odd = new Outcome("Odd", Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome high = new Outcome("High", Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome low = new Outcome("Low", Game.EVEN_MONEY_BET_PAYOUT);
+
+            // High Low
+            if (n < 19) {
+                wheel.addOutcome(n, low);
+            } else {
+                wheel.addOutcome(n, high);
+            }
+
+            // Even Odd
+            if (n % 2 == 0) {
+                wheel.addOutcome(n, even);
+            } else {
+                wheel.addOutcome(n, odd);
+            }
+
+            // Red Black
+            if (Set.of(1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36).contains(n)) {
+                wheel.addOutcome(n, red);
+            } else {
+                wheel.addOutcome(n, black);
+            }
         }
     }
 }
