@@ -31,7 +31,7 @@ public class Game {
 
     // Locale
     public static final Locale LOCALE = Locale.US;
-    public static final ResourceBundle LABELS = ResourceBundle.getBundle("i18n", LOCALE);
+    public static final ResourceBundle LABELS = ResourceBundle.getBundle("i18n.BetNames", LOCALE);
 
     // Inside Bet payouts
     public static final int STRAIGHT_BET_PAYOUT = 35;
