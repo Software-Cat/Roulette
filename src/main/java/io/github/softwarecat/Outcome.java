@@ -49,8 +49,8 @@ public class Outcome {
     /**
      * Sets the instance name and odds from the parameter name and odds.
      *
-     * @param name The name of this outcome
-     * @param odds The payout odds of this outcome
+     * @param name the name of this outcome
+     * @param odds the payout odds of this outcome
      */
     public Outcome(String name, int odds) {
         this.name = name;
@@ -78,7 +78,7 @@ public class Outcome {
     /**
      * Compare the name attributes of this and other.
      *
-     * @param other Another Outcome to compare against
+     * @param other another Outcome to compare against
      * @return true if this name matches the other name
      */
     @Override
@@ -97,7 +97,7 @@ public class Outcome {
     /**
      * Easy-to-read representation of this outcome.
      *
-     * @return String of the form ‘name (odds:1)’.
+     * @return string of the form ‘name (odds:1)’
      */
     @Override
     public String toString() {
