@@ -48,7 +48,7 @@ public class Bin extends HashSet<Outcome> {
      * Creates an Bin using the super() statement, invoking the TreeSet constructor.
      * It then loads that collection using elements of the given array.
      *
-     * @param outcomes A primitive array of outcomes
+     * @param outcomes a primitive array of outcomes
      */
     public Bin(Outcome[] outcomes) {
         super(Arrays.asList(outcomes));
@@ -60,7 +60,7 @@ public class Bin extends HashSet<Outcome> {
      * This relies on the fact that all classes that implement Collection will provide the iterator(); the
      * constructor can convert the elements of the input collection to a proper Set.
      *
-     * @param outcomes A collection of outcomes
+     * @param outcomes a collection of outcomes
      */
     public Bin(Collection<? extends Outcome> outcomes) {
         super(outcomes);
@@ -71,7 +71,7 @@ public class Bin extends HashSet<Outcome> {
      * Since this class is really just a facade over the underlying collection object, this method can simply
      * delegate the real work to the underlying collection.
      *
-     * @param outcome An outcome to add to this Bin
+     * @param outcome an outcome to add to this Bin
      * @return true if this set did not already contain the specified element
      */
     @Override
@@ -82,7 +82,7 @@ public class Bin extends HashSet<Outcome> {
     /**
      * An easy-to-read representation of the list of Outcomes in this Bin.
      *
-     * @return String of the form ‘[outcome, outcome, ...]’.
+     * @return string of the form ‘[outcome, outcome, ...]’
      */
     @Override
     public String toString() {
