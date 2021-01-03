@@ -51,6 +51,15 @@ public class Wheel {
      * Creates a new wheel with 38 empty Bins.
      * It will also create a new random number generator instance.
      * At the present time, this does not do the full initialization of the Bins.
+     */
+    public Wheel() {
+        this(new Random());
+    }
+
+    /**
+     * Creates a new wheel with 38 empty Bins.
+     * It will also use the given random number generator as the randomizer.
+     * At the present time, this does not do the full initialization of the Bins.
      *
      * @param rng a “random” number generator. For testing, this may
      *            be a non-random number generator
