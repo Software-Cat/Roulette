@@ -42,6 +42,14 @@ public class BinBuilder {
      * @param wheel the Wheel with Bins that must be populated with Outcomes
      */
     public void buildBins(Wheel wheel) {
+        // Five Bets
+        Outcome five = new Outcome("Five Bet", Game.FIVE_BET_PAYOUT);
+        wheel.addOutcome(0, five);
+        wheel.addOutcome(1, five);
+        wheel.addOutcome(2, five);
+        wheel.addOutcome(3, five);
+        wheel.addOutcome(37, five);
+
         // Straight Bets
         for (int i = 1; i < 37; i++) {
             wheel.addOutcome(i, new Outcome(String.valueOf(i), Game.STRAIGHT_BET_PAYOUT));
