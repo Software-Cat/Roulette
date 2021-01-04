@@ -38,7 +38,7 @@ public class Game {
     public static final int SPLIT_BET_PAYOUT = 17;
     public static final int STREET_BET_PAYOUT = 11;
     public static final int CORNER_BET_PAYOUT = 8;
-    public static final int FIVE_NUMBER_BET_PAYOUT = 6;
+    public static final int FIVE_BET_PAYOUT = 6;
     public static final int LINE_BET_PAYOUT = 5;
 
     // Outside Bet payouts
