@@ -43,6 +43,8 @@ public class BinBuilderTest {
         BinBuilder builder = new BinBuilder();
         builder.buildBins(wheel);
 
+        System.out.println(wheel.get(1));
+
         for (int i = 0; i < 38; i++) {
             assertTrue(wheel.get(i).size() > 0);
         }
