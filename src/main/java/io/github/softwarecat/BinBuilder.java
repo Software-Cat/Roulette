@@ -43,7 +43,7 @@ public class BinBuilder {
      */
     public void buildBins(Wheel wheel) {
         // Five Bets
-        Outcome five = new Outcome("Five Bet", Game.FIVE_BET_PAYOUT);
+        Outcome five = new Outcome(Game.LABELS.getString("five"), Game.FIVE_BET_PAYOUT);
         wheel.addOutcome(0, five);
         wheel.addOutcome(1, five);
         wheel.addOutcome(2, five);
@@ -158,12 +158,12 @@ public class BinBuilder {
 
         // Even-Money Bets
         for (int n = 1; n < 37; n++) {
-            Outcome red = new Outcome("Red", Game.EVEN_MONEY_BET_PAYOUT);
-            Outcome black = new Outcome("Black", Game.EVEN_MONEY_BET_PAYOUT);
-            Outcome even = new Outcome("Even", Game.EVEN_MONEY_BET_PAYOUT);
-            Outcome odd = new Outcome("Odd", Game.EVEN_MONEY_BET_PAYOUT);
-            Outcome high = new Outcome("High", Game.EVEN_MONEY_BET_PAYOUT);
-            Outcome low = new Outcome("Low", Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome red = new Outcome(Game.LABELS.getString("red"), Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome black = new Outcome(Game.LABELS.getString("black"), Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome even = new Outcome(Game.LABELS.getString("even"), Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome odd = new Outcome(Game.LABELS.getString("odd"), Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome high = new Outcome(Game.LABELS.getString("high"), Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome low = new Outcome(Game.LABELS.getString("low"), Game.EVEN_MONEY_BET_PAYOUT);
 
             // High Low
             if (n < 19) {
