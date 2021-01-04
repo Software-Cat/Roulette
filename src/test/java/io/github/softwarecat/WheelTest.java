@@ -44,18 +44,26 @@ public class WheelTest {
     @Test
     public void addOutcome() {
         Outcome outcome = new Outcome("1", 1);
-        Bin bin = (Bin) wheel.get(1).clone();
+        Bin bin = (Bin) wheel.getBin(1).clone();
 
         wheel.addOutcome(1, outcome);
         bin.add(outcome);
 
-        assertEquals(wheel.get(1), bin);
+        assertEquals(wheel.getBin(1), bin);
     }
 
     @Test
     public void next() {
         Random rng = new Random(1);
 
-        assertEquals(wheel.next(), wheel.get(rng.nextInt(38)));
+        assertEquals(wheel.next(), wheel.getBin(rng.nextInt(38)));
+    }
+
+    @Test
+    public void getOutcomes() {
+        BinBuilder builder = new BinBuilder();
+        builder.buildBins(wheel);
+
+        assertEquals(wheel.getOutcomes("Line").size(), 11);
     }
 }

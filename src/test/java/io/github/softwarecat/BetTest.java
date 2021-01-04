@@ -24,27 +24,23 @@
 
 package io.github.softwarecat;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
-public class BinBuilderTest {
+public class BetTest {
 
-    Wheel wheel;
-
-    @Before
-    public void setUp() {
-        wheel = new Wheel();
+    @Test
+    public void winAmount() {
+        Outcome outcome = new Outcome("Name", 2);
+        Bet bet = new Bet(5, outcome);
+        assertEquals(bet.winAmount(), 15);
     }
 
     @Test
-    public void buildBins() {
-        BinBuilder builder = new BinBuilder();
-        builder.buildBins(wheel);
-
-        for (int i = 0; i < 38; i++) {
-            assertTrue(wheel.getBin(i).size() > 0);
-        }
+    public void loseAmount() {
+        Outcome outcome = new Outcome("Name", 2);
+        Bet bet = new Bet(5, outcome);
+        assertEquals(bet.loseAmount(), 5);
     }
 }

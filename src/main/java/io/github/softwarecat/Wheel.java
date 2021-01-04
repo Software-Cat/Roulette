@@ -24,15 +24,15 @@
 
 package io.github.softwarecat;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Wheel contains the 38 individual bins on a Roulette wheel, plus a random number generator. It can select
  * a Bin at random, simulating a spin of the Roulette wheel.
  */
 public class Wheel {
+
+    private final Map<String, Outcome> allOutcomes = new HashMap<>();
 
     /**
      * Contains the individual Bin instances.
@@ -81,7 +81,11 @@ public class Wheel {
      * @param outcome the Outcome to add to this Bin
      */
     public void addOutcome(int bin, Outcome outcome) {
+        // Update Bin
         bins.get(bin).add(outcome);
+
+        // Update Map of all possible Outcomes
+        allOutcomes.put(outcome.toString(), outcome);
     }
 
     /**
@@ -99,7 +103,23 @@ public class Wheel {
      * @param bin bin number, in the range zero to 37 inclusive
      * @return the requested Bin
      */
-    public Bin get(int bin) {
+    public Bin getBin(int bin) {
         return bins.get(bin);
+    }
+
+    /**
+     * Get all outcomes previously added to the wheel that contains the queried name.
+     *
+     * @param name the name the matching outcomes must contain
+     * @return set of Outcomes with the queried name
+     */
+    public Set<Outcome> getOutcomes(String name) {
+        Set<Outcome> result = new HashSet<>();
+        for (Map.Entry<String, Outcome> entry : allOutcomes.entrySet()) {
+            if (entry.getKey().contains(name)) {
+                result.add(entry.getValue());
+            }
+        }
+        return result;
     }
 }
