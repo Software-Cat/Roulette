@@ -26,7 +26,7 @@ package io.github.softwarecat;
 
 public class Passenger57 extends Player {
 
-    private final Outcome black;
+    private final Bet black;
 
     public Passenger57(Table table) {
         super(table);
@@ -34,7 +34,7 @@ public class Passenger57 extends Player {
         Wheel tempWheel = new Wheel();
         BinBuilder tempBinBuilder = new BinBuilder();
         tempBinBuilder.buildBins(tempWheel);
-        black = tempWheel.getOutcomes("Black").get(0);
+        black = new Bet(5, tempWheel.getOutcomes("Black").get(0));
     }
 
     @Override
@@ -44,16 +44,16 @@ public class Passenger57 extends Player {
 
     @Override
     public void placeBets() throws InvalidBetException {
-        table.placeBet(new Bet(5, black));
+        table.placeBet(black);
     }
 
     @Override
     public void win() {
-
+        System.out.println("I got " + black.winAmount());
     }
 
     @Override
     public void lose() {
-
+        System.out.println("I lost " + black.loseAmount());
     }
 }
