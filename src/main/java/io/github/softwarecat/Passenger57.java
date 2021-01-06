@@ -24,23 +24,36 @@
 
 package io.github.softwarecat;
 
-public abstract class Player {
+public class Passenger57 extends Player {
 
-    protected int stake;
+    private final Outcome black;
 
-    protected int roundsToGo;
+    public Passenger57(Table table) {
+        super(table);
 
-    protected Table table;
-
-    public Player(Table table) {
-        this.table = table;
+        Wheel tempWheel = new Wheel();
+        BinBuilder tempBinBuilder = new BinBuilder();
+        tempBinBuilder.buildBins(tempWheel);
+        black = tempWheel.getOutcomes("Black").get(0);
     }
 
-    public abstract boolean playing();
+    @Override
+    public boolean playing() {
+        return true;
+    }
 
-    public abstract void placeBets() throws InvalidBetException;
+    @Override
+    public void placeBets() throws InvalidBetException {
+        table.placeBet(new Bet(5, black));
+    }
 
-    public abstract void win();
+    @Override
+    public void win() {
 
-    public abstract void lose();
+    }
+
+    @Override
+    public void lose() {
+
+    }
 }
