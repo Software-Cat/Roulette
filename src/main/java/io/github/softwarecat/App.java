@@ -29,6 +29,21 @@ package io.github.softwarecat;
  */
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Wheel wheel = new Wheel();
+        BinBuilder binBuilder = new BinBuilder();
+        binBuilder.buildBins(wheel);
+
+        Table table = new Table();
+        Player player = new Passenger57(table);
+
+        Game game = new Game(wheel, table);
+
+        try {
+            for (int i = 0; i < 50; i++) {
+                game.cycle(player);
+            }
+        } catch (InvalidBetException e) {
+            System.out.println("Player placed invalid bet.");
+        }
     }
 }
