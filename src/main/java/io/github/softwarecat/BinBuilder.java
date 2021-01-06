@@ -26,6 +26,9 @@ package io.github.softwarecat;
 
 import java.util.Set;
 
+/**
+ * BinBuilder creates the Outcomes for all of the 38 individual Bin on a Roulette wheel.
+ */
 public class BinBuilder {
 
     /**

@@ -24,10 +24,19 @@
 
 package io.github.softwarecat;
 
+/**
+ * Passenger57 constructs a Bet based on the Outcome named "Black".
+ * This is a very persistent player indeed.
+ */
 public class Passenger57 extends Player {
 
     private final Bet black;
 
+    /**
+     * Constructs the Player with a specific table for placing bets.
+     *
+     * @param table the Table instance on which bets are placed
+     */
     public Passenger57(Table table) {
         super(table);
 
