@@ -3,4 +3,4 @@
 
 Casino roulette game simulation to analyze different betting strategies.
 
-Work in Progress.a
+Work in Progress.
