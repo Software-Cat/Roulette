@@ -24,9 +24,36 @@
 
 package io.github.softwarecat;
 
-/**
- * InvalidBet is thrown when the Player attempts to place a bet which exceeds the table’s limit.
- */
-public class InvalidBetException extends Exception {
+import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.fail;
+
+public class TableTest {
+
+    @Test
+    public void placeBet() {
+        Bet bet1 = new Bet(2, new Outcome("Name 1", 1));
+        Bet bet2 = new Bet(4, new Outcome("Name 2", 6));
+
+        Table table = new Table();
+
+        try {
+            table.placeBet(bet1);
+            table.placeBet(bet2);
+        } catch (InvalidBetException e) {
+            fail();
+        }
+
+        ArrayList<Bet> bets = new ArrayList<>();
+        for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
+            bets.add(it.next());
+        }
+
+        assertArrayEquals(bets.toArray(), List.of(bet1, bet2).toArray());
+    }
 }
