@@ -24,9 +24,12 @@
 
 package io.github.softwarecat;
 
-/**
- * InvalidBet is thrown when the Player attempts to place a bet which exceeds the table’s limit.
- */
-public class InvalidBetException extends Exception {
+import org.junit.Test;
 
+public class InvalidBetExceptionTest {
+
+    @Test(expected = InvalidBetException.class)
+    public void throwInvalidBetException() throws InvalidBetException {
+        throw new InvalidBetException();
+    }
 }
