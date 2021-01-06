@@ -113,8 +113,8 @@ public class Wheel {
      * @param name the name the matching outcomes must contain
      * @return set of Outcomes with the queried name
      */
-    public Set<Outcome> getOutcomes(String name) {
-        Set<Outcome> result = new HashSet<>();
+    public List<Outcome> getOutcomes(String name) {
+        List<Outcome> result = new ArrayList<>();
         for (Map.Entry<String, Outcome> entry : allOutcomes.entrySet()) {
             if (entry.getKey().contains(name)) {
                 result.add(entry.getValue());
