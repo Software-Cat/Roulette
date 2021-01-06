@@ -48,18 +48,16 @@ public class Wheel {
     private final Random rng;
 
     /**
-     * Creates a new wheel with 38 empty Bins.
-     * It will also create a new random number generator instance.
-     * At the present time, this does not do the full initialization of the Bins.
+     * Create a wheel that will use a the default random number generator. The java.util.Random will be
+     * used. This will define the various bins and outcomes using an instance of BinBuilder.
      */
     public Wheel() {
         this(new Random());
     }
 
     /**
-     * Creates a new wheel with 38 empty Bins.
-     * It will also use the given random number generator as the randomizer.
-     * At the present time, this does not do the full initialization of the Bins.
+     * Create a wheel with the given random number generator. This will define the various bins and outcomes
+     * using an instance of BinBuilder.
      *
      * @param rng a “random” number generator. For testing, this may
      *            be a non-random number generator
@@ -70,6 +68,9 @@ public class Wheel {
             bins.add(new Bin());
         }
         this.bins = bins;
+
+        BinBuilder binBuilder = new BinBuilder();
+        binBuilder.buildBins(this);
 
         this.rng = rng;
     }
