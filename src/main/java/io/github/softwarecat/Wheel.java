@@ -69,9 +69,6 @@ public class Wheel {
         }
         this.bins = bins;
 
-        BinBuilder binBuilder = new BinBuilder();
-        binBuilder.buildBins(this);
-
         this.rng = rng;
     }
 
