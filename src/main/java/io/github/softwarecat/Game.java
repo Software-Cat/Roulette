@@ -24,6 +24,7 @@
 
 package io.github.softwarecat;
 
+import java.util.ListIterator;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -45,4 +46,33 @@ public class Game {
     public static final int DOZEN_BET_PAYOUT = 2;
     public static final int COLUMN_BET_PAYOUT = 2;
     public static final int EVEN_MONEY_BET_PAYOUT = 1;
+
+    // Game Logic
+    private Wheel wheel;
+    private Table table;
+
+    public Game(Wheel wheel, Table table) {
+        this.wheel = wheel;
+        this.table = table;
+    }
+
+    public void cycle(Player player) throws InvalidBetException {
+        player.placeBets();
+
+        Bin winningBin = wheel.next();
+
+        boolean isWinner = false;
+        for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
+            Bet bet = it.next();
+            if (winningBin.contains(bet.outcome)) {
+                isWinner = true;
+            }
+        }
+
+        if (isWinner) {
+            player.win();
+        } else {
+            player.lose();
+        }
+    }
 }
