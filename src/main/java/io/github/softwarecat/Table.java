@@ -53,7 +53,7 @@ public class Table {
      * Creates an empty list of bets.
      */
     public Table() {
-        this(Integer.MAX_VALUE, Integer.MIN_VALUE);
+        this(Integer.MAX_VALUE, 0);
     }
 
     public Table(int limit, int minimum) {

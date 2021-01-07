@@ -24,9 +24,14 @@
 
 package io.github.softwarecat;
 
+import java.util.ListIterator;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Game manages the sequence of actions that defines the game of Roulette. This includes notifying the Player to place
+ * bets, spinning the Wheel and resolving the Bets actually present on the Table.
+ */
 public class Game {
 
     // Locale
@@ -45,4 +50,51 @@ public class Game {
     public static final int DOZEN_BET_PAYOUT = 2;
     public static final int COLUMN_BET_PAYOUT = 2;
     public static final int EVEN_MONEY_BET_PAYOUT = 1;
+
+    // Game Logic
+    /**
+     * The Wheel that returns a randomly selected Bin of Outcomes.
+     */
+    private Wheel wheel;
+    /**
+     * The Table which contains the Bets placed by the Player.
+     */
+    private Table table;
+
+    /**
+     * Constructs a new Game, using a given Wheel and Table.
+     *
+     * @param wheel the Wheel instance which produces random events
+     * @param table the Table instance which holds bets to be resolved
+     */
+    public Game(Wheel wheel, Table table) {
+        this.wheel = wheel;
+        this.table = table;
+    }
+
+    /**
+     * This will execute a single cycle of play with a given Player.
+     *
+     * @param player the individual player that places bets, receives winnings and pays losses
+     * @throws InvalidBetException if the Player attempts to place a bet which exceeds the table’s limit
+     */
+    public void cycle(Player player) throws InvalidBetException {
+        player.placeBets();
+
+        Bin winningBin = wheel.next();
+
+        boolean isWinner = false;
+        for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
+            Bet bet = it.next();
+            if (winningBin.contains(bet.outcome)) {
+                isWinner = true;
+            }
+        }
+
+        if (isWinner) {
+            player.win();
+        } else {
+            player.lose();
+        }
+    }
 }

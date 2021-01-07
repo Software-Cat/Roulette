@@ -24,19 +24,58 @@
 
 package io.github.softwarecat;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import java.util.Random;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest {
-    /**
-     * Rigorous Test :-)
-     */
+import static org.junit.Assert.*;
+
+public class GameTest {
+
+    private Wheel wheel;
+
+    private Random random;
+
+    @Before
+    public void setUp() {
+        random = new Random();
+        random.setSeed(1);
+        wheel = new Wheel(new Random(1));
+        BinBuilder binBuilder = new BinBuilder();
+        binBuilder.buildBins(wheel);
+    }
+
     @Test
-    public void shouldAnswerWithTrue() {
-        assertTrue( true );
+    public void cycle() {
+        Table table = new Table();
+
+        final boolean[] won = new boolean[1];
+        Player player = new Passenger57(table) {
+            @Override
+            public void win() {
+                won[0] = true;
+            }
+
+            @Override
+            public void lose() {
+                won[0] = false;
+            }
+        };
+
+        Game game = new Game(wheel, table);
+
+        try {
+            game.cycle(player);
+        } catch (InvalidBetException e) {
+            fail("Player placed invalid bet.");
+        }
+
+        int wheelResult = random.nextInt(38);
+        if (wheel.getBin(wheelResult).contains(wheel.getOutcomes("Black").get(0))) {
+            assertTrue(won[0]);
+        } else {
+            assertFalse(won[0]);
+        }
     }
 }

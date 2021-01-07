@@ -38,7 +38,7 @@ public abstract class Player {
 
     public abstract boolean playing();
 
-    public abstract void placeBets();
+    public abstract void placeBets() throws InvalidBetException;
 
     public abstract void win();
 
