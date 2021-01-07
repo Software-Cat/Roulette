@@ -46,7 +46,7 @@ public class BinBuilder {
      */
     public void buildBins(Wheel wheel) {
         // Five Bets
-        Outcome five = new Outcome(Game.LABELS.getString("five"), Game.FIVE_BET_PAYOUT);
+        Outcome five = new Outcome(Game.BET_NAMES.getString("five"), Game.FIVE_BET_PAYOUT);
         wheel.addOutcome(0, five);
         wheel.addOutcome(1, five);
         wheel.addOutcome(2, five);
@@ -68,7 +68,7 @@ public class BinBuilder {
             // First-Second column numbers
             int n = 3 * r + 1;
             Outcome split = new Outcome(
-                    Game.LABELS.getString("split") + String.format(" %d-%d", n, n + 1),
+                    Game.BET_NAMES.getString("split") + String.format(" %d-%d", n, n + 1),
                     Game.SPLIT_BET_PAYOUT);
             wheel.addOutcome(n, split);
             wheel.addOutcome(n + 1, split);
@@ -76,7 +76,7 @@ public class BinBuilder {
             // Second-Third column numbers
             n = 3 * r + 2;
             split = new Outcome(
-                    Game.LABELS.getString("split") + String.format(" %d-%d", n, n + 1),
+                    Game.BET_NAMES.getString("split") + String.format(" %d-%d", n, n + 1),
                     Game.SPLIT_BET_PAYOUT);
             wheel.addOutcome(n, split);
             wheel.addOutcome(n + 1, split);
@@ -85,7 +85,7 @@ public class BinBuilder {
         // Up-Down
         for (int n = 1; n < 34; n++) {
             Outcome split = new Outcome(
-                    Game.LABELS.getString("split") + String.format(" %d-%d", n, n + 3),
+                    Game.BET_NAMES.getString("split") + String.format(" %d-%d", n, n + 3),
                     Game.SPLIT_BET_PAYOUT);
             wheel.addOutcome(n, split);
             wheel.addOutcome(n + 3, split);
@@ -95,7 +95,7 @@ public class BinBuilder {
         for (int r = 0; r < 12; r++) {
             int n = 3 * r + 1;
             Outcome street = new Outcome(
-                    Game.LABELS.getString("street") + String.format(" %d-%d-%d", n, n + 1, n + 2),
+                    Game.BET_NAMES.getString("street") + String.format(" %d-%d-%d", n, n + 1, n + 2),
                     Game.STREET_BET_PAYOUT);
             wheel.addOutcome(n, street);
             wheel.addOutcome(n + 1, street);
@@ -107,7 +107,7 @@ public class BinBuilder {
             // Column 1-2 Corner
             int n = 3 * r + 1;
             Outcome corner = new Outcome(
-                    Game.LABELS.getString("corner") + String.format(" %d-%d-%d-%d", n, n + 1, n + 3, n + 4),
+                    Game.BET_NAMES.getString("corner") + String.format(" %d-%d-%d-%d", n, n + 1, n + 3, n + 4),
                     Game.CORNER_BET_PAYOUT);
             wheel.addOutcome(n, corner);
             wheel.addOutcome(n + 1, corner);
@@ -117,7 +117,7 @@ public class BinBuilder {
             // Column 2-3 Corner
             n = 3 * r + 2;
             corner = new Outcome(
-                    Game.LABELS.getString("corner") + String.format(" %d-%d-%d-%d", n, n + 1, n + 3, n + 4),
+                    Game.BET_NAMES.getString("corner") + String.format(" %d-%d-%d-%d", n, n + 1, n + 3, n + 4),
                     Game.CORNER_BET_PAYOUT);
             wheel.addOutcome(n, corner);
             wheel.addOutcome(n + 1, corner);
@@ -129,7 +129,7 @@ public class BinBuilder {
         for (int r = 0; r < 11; r++) {
             int n = 3 * r + 1;
             Outcome line = new Outcome(
-                    Game.LABELS.getString("line") + String.format(" %d-%d-%d-%d-%d-%d", n, n + 1, n + 2, n + 3, n + 4, n + 5),
+                    Game.BET_NAMES.getString("line") + String.format(" %d-%d-%d-%d-%d-%d", n, n + 1, n + 2, n + 3, n + 4, n + 5),
                     Game.LINE_BET_PAYOUT);
             wheel.addOutcome(n, line);
             wheel.addOutcome(n + 1, line);
@@ -142,7 +142,7 @@ public class BinBuilder {
         // Dozen Bets
         for (int d = 0; d < 3; d++) {
             Outcome dozen = new Outcome(
-                    Game.LABELS.getString("dozen") + String.format(" %d-%d", d + 1, d + 12),
+                    Game.BET_NAMES.getString("dozen") + String.format(" %d-%d", d + 1, d + 12),
                     Game.DOZEN_BET_PAYOUT);
             for (int m = 0; m < 12; m++) {
                 wheel.addOutcome(12 * d + m + 1, dozen);
@@ -152,7 +152,7 @@ public class BinBuilder {
         // Column Bets
         for (int c = 0; c < 3; c++) {
             Outcome column = new Outcome(
-                    Game.LABELS.getString("column") + String.format(" %d", c + 1),
+                    Game.BET_NAMES.getString("column") + String.format(" %d", c + 1),
                     Game.COLUMN_BET_PAYOUT);
             for (int r = 0; r < 12; r++) {
                 wheel.addOutcome(3 * r + c + 1, column);
@@ -161,12 +161,12 @@ public class BinBuilder {
 
         // Even-Money Bets
         for (int n = 1; n < 37; n++) {
-            Outcome red = new Outcome(Game.LABELS.getString("red"), Game.EVEN_MONEY_BET_PAYOUT);
-            Outcome black = new Outcome(Game.LABELS.getString("black"), Game.EVEN_MONEY_BET_PAYOUT);
-            Outcome even = new Outcome(Game.LABELS.getString("even"), Game.EVEN_MONEY_BET_PAYOUT);
-            Outcome odd = new Outcome(Game.LABELS.getString("odd"), Game.EVEN_MONEY_BET_PAYOUT);
-            Outcome high = new Outcome(Game.LABELS.getString("high"), Game.EVEN_MONEY_BET_PAYOUT);
-            Outcome low = new Outcome(Game.LABELS.getString("low"), Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome red = new Outcome(Game.BET_NAMES.getString("red"), Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome black = new Outcome(Game.BET_NAMES.getString("black"), Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome even = new Outcome(Game.BET_NAMES.getString("even"), Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome odd = new Outcome(Game.BET_NAMES.getString("odd"), Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome high = new Outcome(Game.BET_NAMES.getString("high"), Game.EVEN_MONEY_BET_PAYOUT);
+            Outcome low = new Outcome(Game.BET_NAMES.getString("low"), Game.EVEN_MONEY_BET_PAYOUT);
 
             // High Low
             if (n < 19) {

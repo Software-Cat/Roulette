@@ -33,6 +33,8 @@ import java.util.ListIterator;
  */
 public class Table {
 
+    public final Wheel wheel;
+
     /**
      * This is a list of the Bets currently active. These will result in either wins or losses to the Player.
      */
@@ -52,11 +54,12 @@ public class Table {
      * Instantiates a new Table.
      * Creates an empty list of bets.
      */
-    public Table() {
-        this(Integer.MAX_VALUE, 0);
+    public Table(Wheel wheel) {
+        this(wheel, Game.TABLE_LIMIT, Game.TABLE_MINIMUM);
     }
 
-    public Table(int limit, int minimum) {
+    public Table(Wheel wheel, int limit, int minimum) {
+        this.wheel = wheel;
         this.limit = limit;
         this.minimum = minimum;
     }
@@ -93,7 +96,16 @@ public class Table {
      * @throws InvalidBetException if the bets don’t pass the table limit rules
      */
     public void placeBet(Bet bet) throws InvalidBetException {
+        if (bet.parent != null) {
+            if (bet.parent.stake >= bet.amountBet) {
+                bet.parent.stake -= bet.amountBet;
+            } else {
+                throw new InvalidBetException();
+            }
+        }
+
         bets.add(bet);
+
         validate();
     }
 

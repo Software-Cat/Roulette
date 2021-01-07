@@ -40,7 +40,7 @@ public class TableTest {
         Bet bet1 = new Bet(2, new Outcome("Name 1", 1));
         Bet bet2 = new Bet(4, new Outcome("Name 2", 6));
 
-        Table table = new Table();
+        Table table = new Table(new Wheel());
 
         try {
             table.placeBet(bet1);

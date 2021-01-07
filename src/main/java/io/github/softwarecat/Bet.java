@@ -40,14 +40,26 @@ public class Bet {
     public Outcome outcome;
 
     /**
+     * The player who created the bet.
+     */
+    public Player parent;
+
+    public Bet(int amountBet, Outcome outcome) {
+        this.amountBet = amountBet;
+        this.outcome = outcome;
+        this.parent = null;
+    }
+
+    /**
      * Create a new Bet of a specific amount on a specific outcome.
      *
      * @param amountBet the amount of the bet
      * @param outcome   the Outcome we are betting on
      */
-    public Bet(int amountBet, Outcome outcome) {
+    public Bet(int amountBet, Outcome outcome, Player parent) {
         this.amountBet = amountBet;
         this.outcome = outcome;
+        this.parent = parent;
     }
 
     /**
