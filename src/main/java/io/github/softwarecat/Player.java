@@ -24,23 +24,70 @@
 
 package io.github.softwarecat;
 
+/**
+ * Player places bets in Roulette. This an abstract class, with no actual body for the placeBets() method. However,
+ * this class does implement the basic win() method used by all subclasses.
+ */
 public abstract class Player {
 
+    /**
+     * The player’s current stake. Initialized to the player’s starting budget.
+     */
     protected int stake;
 
+    /**
+     * The number of rounds left to play. Initialized by the overall simulation control to the maximum number of rounds
+     * to play.
+     */
     protected int roundsToGo;
 
+    /**
+     * The Table used to place individual Bets. The Table contains the current Wheel from which the player can
+     * get Outcomes used to build Bets.
+     */
     protected Table table;
 
+    /**
+     * Constructs the Player with a specific Table for placing Bets.
+     * Since the table has access to the Wheel, we can use this wheel to extract Outcome objects.
+     *
+     * @param table the table to use
+     */
     public Player(Table table) {
         this.table = table;
     }
 
+    /**
+     * Returns true while the player is still active.
+     *
+     * @return true while the player is still active
+     */
     public abstract boolean playing();
 
+    /**
+     * Updates the Table with the various Bets.
+     *
+     * @throws InvalidBetException if the Player attempts to place a bet which exceeds the table’s limit
+     */
     public abstract void placeBets() throws InvalidBetException;
 
-    public abstract void win();
+    /**
+     * Notification from the Game that the Bet was a winner. The amount of money won is available via bet method
+     * winAmount().
+     *
+     * @param bet the bet which won
+     */
+    public void win(Bet bet) {
+        stake += bet.winAmount();
+    }
 
-    public abstract void lose();
+    /**
+     * Notification from the Game that the Bet was a loser. Note that the amount was already deducted from the stake
+     * when the bet was created.
+     *
+     * @param bet the bet which lost
+     */
+    public void lose(Bet bet) {
+
+    }
 }

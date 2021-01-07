@@ -24,9 +24,7 @@
 
 package io.github.softwarecat;
 
-import java.util.ListIterator;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Game manages the sequence of actions that defines the game of Roulette. This includes notifying the Player to place
@@ -36,7 +34,7 @@ public class Game {
 
     // Locale
     public static final Locale LOCALE = Locale.US;
-    public static final ResourceBundle LABELS = ResourceBundle.getBundle("i18n.BetNames", LOCALE);
+    public static final ResourceBundle BET_NAMES = ResourceBundle.getBundle("i18n.BetNames", LOCALE);
 
     // Inside Bet payouts
     public static final int STRAIGHT_BET_PAYOUT = 35;
@@ -51,15 +49,19 @@ public class Game {
     public static final int COLUMN_BET_PAYOUT = 2;
     public static final int EVEN_MONEY_BET_PAYOUT = 1;
 
-    // Game Logic
+    // Defaults
+    public static final int INITIAL_STAKE = 1000;
+    public static final int TABLE_LIMIT = Integer.MAX_VALUE;
+    public static final int TABLE_MINIMUM = 0;
+
     /**
      * The Wheel that returns a randomly selected Bin of Outcomes.
      */
-    private Wheel wheel;
+    private final Wheel wheel;
     /**
      * The Table which contains the Bets placed by the Player.
      */
-    private Table table;
+    private final Table table;
 
     /**
      * Constructs a new Game, using a given Wheel and Table.
@@ -79,22 +81,31 @@ public class Game {
      * @throws InvalidBetException if the Player attempts to place a bet which exceeds the table’s limit
      */
     public void cycle(Player player) throws InvalidBetException {
+        if (!player.playing()) {
+            return;
+        }
+
         player.placeBets();
 
         Bin winningBin = wheel.next();
 
-        boolean isWinner = false;
+        List<Bet> winningBets = new ArrayList<>();
+        List<Bet> losingBets = new ArrayList<>();
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
             Bet bet = it.next();
             if (winningBin.contains(bet.outcome)) {
-                isWinner = true;
+                winningBets.add(bet);
+            } else {
+                losingBets.add(bet);
             }
+            it.remove();
         }
 
-        if (isWinner) {
-            player.win();
-        } else {
-            player.lose();
+        for (Bet bet : winningBets) {
+            player.win(bet);
+        }
+        for (Bet bet : losingBets) {
+            player.lose(bet);
         }
     }
 }

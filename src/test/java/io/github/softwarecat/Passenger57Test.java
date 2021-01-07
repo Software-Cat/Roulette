@@ -24,47 +24,54 @@
 
 package io.github.softwarecat;
 
-/**
- * Passenger57 constructs a Bet based on the Outcome named "Black".
- * This is a very persistent player indeed.
- */
-public class Passenger57 extends Player {
+import org.junit.Before;
+import org.junit.Test;
 
-    private final Outcome BLACK;
+import java.util.ListIterator;
 
-    private final int BET_AMOUNT = 50;
+import static org.junit.Assert.*;
 
-    /**
-     * Constructs the Player with a specific Table for placing Bets.
-     * Since the table has access to the Wheel, we can use this wheel to extract Outcome objects.
-     *
-     * @param table the table to use
-     */
-    public Passenger57(Table table) {
-        super(table);
+public class Passenger57Test {
 
-        BLACK = table.wheel.getOutcomes(Game.BET_NAMES.getString("black")).get(0);
+    Wheel wheel;
+
+    Table table;
+
+    Player player;
+
+    @Before
+    public void setUp() {
+        wheel = new Wheel();
+        BinBuilder binBuilder = new BinBuilder();
+        binBuilder.buildBins(wheel);
+
+        table = new Table(wheel);
+
+        player = new Passenger57(table);
+        player.stake = Game.INITIAL_STAKE;
     }
 
-    @Override
-    public boolean playing() {
-        return stake >= BET_AMOUNT;
+    @Test
+    public void playing() {
+        player.stake = 1000;
+        assertTrue(player.playing());
+
+        player.stake = 0;
+        assertFalse(player.playing());
     }
 
-    @Override
-    public void placeBets() throws InvalidBetException {
-        table.placeBet(new Bet(BET_AMOUNT, BLACK, this));
-    }
+    @Test
+    public void placeBets() {
+        try {
+            player.placeBets();
+        } catch (InvalidBetException e) {
+            fail("Player should not throw invalid bet exception");
+        }
 
-    @Override
-    public void win(Bet bet) {
-        super.win(bet);
-        System.out.println("Now I have " + stake);
-    }
-
-    @Override
-    public void lose(Bet bet) {
-        super.lose(bet);
-        System.out.println("Now I have " + stake);
+        for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
+            Bet bet = it.next();
+            assertEquals(player, bet.parent);
+            assertEquals(wheel.getOutcomes(Game.BET_NAMES.getString("black")).get(0), bet.outcome);
+        }
     }
 }

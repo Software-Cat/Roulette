@@ -24,22 +24,20 @@
 
 package io.github.softwarecat;
 
-/**
- * Hello world!
- */
 public class App {
     public static void main(String[] args) {
         Wheel wheel = new Wheel();
         BinBuilder binBuilder = new BinBuilder();
         binBuilder.buildBins(wheel);
 
-        Table table = new Table();
-        Player player = new Passenger57(table);
+        Table table = new Table(wheel);
+        Player player = new Martingale(table);
+        player.stake = Game.INITIAL_STAKE;
 
         Game game = new Game(wheel, table);
 
         try {
-            for (int i = 0; i < 50; i++) {
+            for (int i = 0; i < 10; i++) {
                 game.cycle(player);
             }
         } catch (InvalidBetException e) {

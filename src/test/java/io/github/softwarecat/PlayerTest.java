@@ -24,47 +24,49 @@
 
 package io.github.softwarecat;
 
-/**
- * Passenger57 constructs a Bet based on the Outcome named "Black".
- * This is a very persistent player indeed.
- */
-public class Passenger57 extends Player {
+import org.junit.Before;
+import org.junit.Test;
 
-    private final Outcome BLACK;
+import static org.junit.Assert.assertEquals;
 
-    private final int BET_AMOUNT = 50;
+public class PlayerTest {
 
-    /**
-     * Constructs the Player with a specific Table for placing Bets.
-     * Since the table has access to the Wheel, we can use this wheel to extract Outcome objects.
-     *
-     * @param table the table to use
-     */
-    public Passenger57(Table table) {
-        super(table);
+    Wheel wheel;
 
-        BLACK = table.wheel.getOutcomes(Game.BET_NAMES.getString("black")).get(0);
+    Table table;
+
+    Player player;
+
+    @Before
+    public void setUp() {
+        wheel = new Wheel();
+        BinBuilder binBuilder = new BinBuilder();
+        binBuilder.buildBins(wheel);
+
+        table = new Table(wheel);
+
+        player = new Player(table) {
+            @Override
+            public boolean playing() {
+                return true;
+            }
+
+            @Override
+            public void placeBets() {
+
+            }
+        };
+        player.stake = Game.INITIAL_STAKE;
     }
 
-    @Override
-    public boolean playing() {
-        return stake >= BET_AMOUNT;
-    }
+    @Test
+    public void win() {
+        // Simulate placing bet
+        player.stake -= 5;
 
-    @Override
-    public void placeBets() throws InvalidBetException {
-        table.placeBet(new Bet(BET_AMOUNT, BLACK, this));
-    }
+        // Simulate winning bet
+        player.win(new Bet(5, new Outcome("Name", 1)));
 
-    @Override
-    public void win(Bet bet) {
-        super.win(bet);
-        System.out.println("Now I have " + stake);
-    }
-
-    @Override
-    public void lose(Bet bet) {
-        super.lose(bet);
-        System.out.println("Now I have " + stake);
+        assertEquals(Game.INITIAL_STAKE + 5, player.stake);
     }
 }
