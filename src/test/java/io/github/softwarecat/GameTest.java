@@ -48,17 +48,17 @@ public class GameTest {
 
     @Test
     public void cycle() {
-        Table table = new Table();
+        Table table = new Table(wheel);
 
         final boolean[] won = new boolean[1];
         Player player = new Passenger57(table) {
             @Override
-            public void win() {
+            public void win(Bet bet) {
                 won[0] = true;
             }
 
             @Override
-            public void lose() {
+            public void lose(Bet bet) {
                 won[0] = false;
             }
         };
