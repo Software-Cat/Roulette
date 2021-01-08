@@ -48,15 +48,20 @@ public class MartingaleTest {
 
         table = new Table(wheel);
         player = new Martingale(table);
-        player.stake = Game.INITIAL_STAKE;
+        player.stake = 100;
     }
 
     @Test
     public void playing() {
-        player.stake = 1000;
+        player.stake = 100;
+        player.roundsToGo = 1;
         assertTrue(player.playing());
 
         player.stake = 0;
+        assertFalse(player.playing());
+
+        player.stake = 100;
+        player.roundsToGo = 0;
         assertFalse(player.playing());
     }
 
