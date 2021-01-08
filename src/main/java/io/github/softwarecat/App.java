@@ -57,7 +57,8 @@ public class App {
             System.out.println("Player placed invalid bet.");
         }
 
-        System.out.println(simulator.maxima);
-        System.out.println(simulator.durations);
+        for (int i = 0; i < simulator.maxima.size(); i++) {
+            System.out.println("Round " + (i + 1) + ": " + "max=" + simulator.maxima.get(i) + " len=" + simulator.durations.get(i));
+        }
     }
 }
