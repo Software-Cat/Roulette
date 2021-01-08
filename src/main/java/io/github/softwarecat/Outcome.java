@@ -38,13 +38,13 @@ public class Outcome {
     /**
      * Holds the name of the Outcome. Examples include "1", "Red".
      */
-    private final String name;
+    protected final String name;
 
     /**
      * Holds the payout odds for this Outcome. Most odds are stated as 1:1 or 17:1, we only keep the
      * numerator (17) and assume the denominator is 1.
      */
-    private final int odds;
+    protected final int odds;
 
     /**
      * Sets the instance name and odds from the parameter name and odds.
@@ -55,14 +55,6 @@ public class Outcome {
     public Outcome(String name, int odds) {
         this.name = name;
         this.odds = odds;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getOdds() {
-        return odds;
     }
 
     /**
