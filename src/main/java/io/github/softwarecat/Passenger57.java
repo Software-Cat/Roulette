@@ -32,7 +32,7 @@ public class Passenger57 extends Player {
 
     protected final Outcome BLACK;
 
-    protected final int BET_AMOUNT = 5;
+    protected final int BET_AMOUNT = Game.TABLE_MINIMUM;
 
     /**
      * Constructs the Player with a specific Table for placing Bets.
@@ -48,7 +48,7 @@ public class Passenger57 extends Player {
 
     @Override
     public boolean playing() {
-        return stake >= BET_AMOUNT;
+        return (stake >= BET_AMOUNT) && (roundsToGo > 0);
     }
 
     @Override
@@ -57,14 +57,17 @@ public class Passenger57 extends Player {
     }
 
     @Override
+    public void newRound() {
+
+    }
+
+    @Override
     public void win(Bet bet) {
         super.win(bet);
-        System.out.println("Now I have " + stake);
     }
 
     @Override
     public void lose(Bet bet) {
         super.lose(bet);
-        System.out.println("Now I have " + stake);
     }
 }
