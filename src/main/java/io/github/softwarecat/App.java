@@ -24,6 +24,8 @@
 
 package io.github.softwarecat;
 
+import java.util.Scanner;
+
 public class App {
     public static void main(String[] args) {
         Wheel wheel = new Wheel();
@@ -31,17 +33,31 @@ public class App {
         binBuilder.buildBins(wheel);
 
         Table table = new Table(wheel);
+
         Player player = new Martingale(table);
-        player.stake = Game.INITIAL_STAKE;
 
         Game game = new Game(wheel, table);
 
+        Simulator simulator = new Simulator(game, player);
+
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.print("Session Duration: ");
+            simulator.sessionDuration = Integer.parseInt(scanner.nextLine());
+
+            System.out.print("Initial Stake: ");
+            simulator.initialStake = Integer.parseInt(scanner.nextLine());
+
+            System.out.print("Samples: ");
+            simulator.samples = Integer.parseInt(scanner.nextLine());
+        }
+
         try {
-            for (int i = 0; i < 10; i++) {
-                game.cycle(player);
-            }
+            simulator.gather();
         } catch (InvalidBetException e) {
             System.out.println("Player placed invalid bet.");
         }
+
+        System.out.println(simulator.maxima);
+        System.out.println(simulator.durations);
     }
 }
