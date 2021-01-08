@@ -30,20 +30,20 @@ package io.github.softwarecat;
  */
 public class Martingale extends Player {
 
-    private final Outcome BLACK;
+    protected final Outcome BLACK;
 
-    private final int BET_BASE_AMOUNT = 1;
+    protected final int BASE_BET = 1;
 
     /**
      * The number of losses. This is the number of times to double the bet.
      */
-    private int lossCount = 0;
+    protected int lossCount = 0;
 
     /**
      * The the bet multiplier, based on the number of losses. This starts at 1, and is reset to 1 on each win. It is doubled
      * in each loss. This is always equal to 2 to the power of lossCount.
      */
-    private int betMultiple = 1;
+    protected int betMultiple = 1;
 
     /**
      * Constructs the Player with a specific Table for placing Bets.
@@ -58,7 +58,7 @@ public class Martingale extends Player {
 
     @Override
     public boolean playing() {
-        return BET_BASE_AMOUNT * betMultiple <= stake;
+        return BASE_BET * betMultiple <= stake;
     }
 
     /**
@@ -68,7 +68,7 @@ public class Martingale extends Player {
      */
     @Override
     public void placeBets() throws InvalidBetException {
-        table.placeBet(new Bet(BET_BASE_AMOUNT * betMultiple, BLACK, this));
+        table.placeBet(new Bet(BASE_BET * betMultiple, BLACK, this));
     }
 
     /**
@@ -97,17 +97,5 @@ public class Martingale extends Player {
         lossCount += 1;
         betMultiple *= 2;
         System.out.println("Now I have " + stake);
-    }
-
-    public int getLossCount() {
-        return lossCount;
-    }
-
-    public int getBetMultiple() {
-        return betMultiple;
-    }
-
-    public int getBetBaseAmount() {
-        return BET_BASE_AMOUNT;
     }
 }

@@ -50,9 +50,9 @@ public class Game {
     public static final int EVEN_MONEY_BET_PAYOUT = 1;
 
     // Defaults
-    public static final int INITIAL_STAKE = 1000;
     public static final int TABLE_LIMIT = Integer.MAX_VALUE;
-    public static final int TABLE_MINIMUM = 0;
+    public static final int TABLE_MINIMUM = 1;
+    public static final int INITIAL_STAKE = TABLE_MINIMUM * 100;
 
     /**
      * The Wheel that returns a randomly selected Bin of Outcomes.

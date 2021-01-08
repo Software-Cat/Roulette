@@ -30,9 +30,9 @@ package io.github.softwarecat;
  */
 public class Passenger57 extends Player {
 
-    private final Outcome BLACK;
+    protected final Outcome BLACK;
 
-    private final int BET_AMOUNT = 50;
+    protected final int BET_AMOUNT = 5;
 
     /**
      * Constructs the Player with a specific Table for placing Bets.
