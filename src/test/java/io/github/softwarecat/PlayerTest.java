@@ -56,7 +56,7 @@ public class PlayerTest {
 
             }
         };
-        player.stake = Game.INITIAL_STAKE;
+        player.stake = 100;
     }
 
     @Test
@@ -67,6 +67,6 @@ public class PlayerTest {
         // Simulate winning bet
         player.win(new Bet(5, new Outcome("Name", 1)));
 
-        assertEquals(Game.INITIAL_STAKE + 5, player.stake);
+        assertEquals(100 + 5, player.stake);
     }
 }

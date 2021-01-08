@@ -72,6 +72,13 @@ public abstract class Player {
     public abstract void placeBets() throws InvalidBetException;
 
     /**
+     * Informs the Player that a new round has started and it should reset all its attributes.
+     */
+    public void newRound() {
+
+    }
+
+    /**
      * Notification from the Game that the Bet was a winner. The amount of money won is available via bet method
      * winAmount().
      *
