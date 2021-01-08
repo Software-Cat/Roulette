@@ -52,7 +52,6 @@ public class Game {
     // Defaults
     public static final int TABLE_LIMIT = Integer.MAX_VALUE;
     public static final int TABLE_MINIMUM = 1;
-    public static final int INITIAL_STAKE = TABLE_MINIMUM * 100;
 
     /**
      * The Wheel that returns a randomly selected Bin of Outcomes.
@@ -107,5 +106,7 @@ public class Game {
         for (Bet bet : losingBets) {
             player.lose(bet);
         }
+
+        player.roundsToGo -= 1;
     }
 }
