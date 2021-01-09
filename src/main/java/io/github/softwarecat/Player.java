@@ -24,6 +24,8 @@
 
 package io.github.softwarecat;
 
+import java.util.Set;
+
 /**
  * Player places bets in Roulette. This an abstract class, with no actual body for the placeBets() method. However,
  * this class does implement the basic win() method used by all subclasses.
@@ -70,6 +72,16 @@ public abstract class Player {
      * @throws InvalidBetException if the Player attempts to place a bet which exceeds the table’s limit
      */
     public abstract void placeBets() throws InvalidBetException;
+
+    /**
+     * The game will notify a player of each spin using this method. This will be invoked even if the player places no
+     * bets.
+     *
+     * @param outcomes the set of Outcome instances that are part of the current win
+     */
+    public void notifyWinners(Set<Outcome> outcomes) {
+
+    }
 
     /**
      * Informs the Player that a new round has started and it should reset all its attributes.
