@@ -32,7 +32,7 @@ public class Martingale extends Player {
 
     protected final Outcome BLACK;
 
-    protected final int BASE_BET = 1;
+    protected final int BASE_BET = Game.TABLE_MINIMUM;
 
     /**
      * The number of losses. This is the number of times to double the bet.
@@ -58,7 +58,7 @@ public class Martingale extends Player {
 
     @Override
     public boolean playing() {
-        return BASE_BET * betMultiple <= stake;
+        return (BASE_BET * betMultiple <= stake) && (roundsToGo > 0);
     }
 
     /**
@@ -69,6 +69,12 @@ public class Martingale extends Player {
     @Override
     public void placeBets() throws InvalidBetException {
         table.placeBet(new Bet(BASE_BET * betMultiple, BLACK, this));
+    }
+
+    @Override
+    public void newRound() {
+        lossCount = 0;
+        betMultiple = 1;
     }
 
     /**
@@ -82,7 +88,6 @@ public class Martingale extends Player {
         super.win(bet);
         lossCount = 0;
         betMultiple = 1;
-        System.out.println("Now I have " + stake);
     }
 
     /**
@@ -96,6 +101,5 @@ public class Martingale extends Player {
         super.lose(bet);
         lossCount += 1;
         betMultiple *= 2;
-        System.out.println("Now I have " + stake);
     }
 }
