@@ -79,7 +79,7 @@ public abstract class Player {
      *
      * @param outcomes the set of Outcome instances that are part of the current win
      */
-    public void updateWinners(Set<Outcome> outcomes) {
+    public void notifyWinners(Set<Outcome> outcomes) {
 
     }
 

@@ -113,7 +113,7 @@ public class Game {
         }
 
         // Tell player about outcomes that would have won
-        player.updateWinners(winningBin);
+        player.notifyWinners(winningBin);
 
         // Update player round counter
         player.roundsToGo -= 1;
