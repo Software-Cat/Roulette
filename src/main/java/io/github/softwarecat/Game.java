@@ -104,7 +104,7 @@ public class Game {
             it.remove();
         }
 
-        // Tell player about winners and losers
+        // Tell player about if his bets won or lost
         for (Bet bet : winningBets) {
             player.win(bet);
         }
@@ -112,7 +112,7 @@ public class Game {
             player.lose(bet);
         }
 
-        // Tell player about outcomes that won
+        // Tell player about outcomes that would have won
         player.updateWinners(winningBin);
 
         // Update player round counter

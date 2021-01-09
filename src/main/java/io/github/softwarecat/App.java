@@ -34,7 +34,7 @@ public class App {
 
         Table table = new Table(wheel);
 
-        Player player = new Martingale(table);
+        Player player = new SevenReds(table);
 
         Game game = new Game(wheel, table);
 
