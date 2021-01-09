@@ -80,14 +80,18 @@ public class Game {
      * @throws InvalidBetException if the Player attempts to place a bet which exceeds the table’s limit
      */
     public void cycle(Player player) throws InvalidBetException {
+        // Skip turn if player is not playing
         if (!player.playing()) {
             return;
         }
 
+        // Notify player to place bets
         player.placeBets();
 
+        // Spin wheel for winners
         Bin winningBin = wheel.next();
 
+        // See which bets won or lost
         List<Bet> winningBets = new ArrayList<>();
         List<Bet> losingBets = new ArrayList<>();
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
@@ -100,6 +104,7 @@ public class Game {
             it.remove();
         }
 
+        // Tell player about winners and losers
         for (Bet bet : winningBets) {
             player.win(bet);
         }
@@ -107,6 +112,10 @@ public class Game {
             player.lose(bet);
         }
 
+        // Tell player about outcomes that won
+        player.updateWinners(winningBin);
+
+        // Update player round counter
         player.roundsToGo -= 1;
     }
 }
