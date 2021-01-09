@@ -51,7 +51,7 @@ public class SevenReds extends Martingale {
      */
     public SevenReds(Table table) {
         super(table);
-        RED = table.wheel.getOutcomes("Red").get(0);
+        RED = table.wheel.getOutcomes(Game.BET_NAMES.getString("red")).get(0);
     }
 
     /**
@@ -61,7 +61,7 @@ public class SevenReds extends Martingale {
      */
     @Override
     public void placeBets() throws InvalidBetException {
-        if (redCount == 7) {
+        if (redCount >= 7) {
             super.placeBets();
         }
     }
@@ -73,11 +73,17 @@ public class SevenReds extends Martingale {
      * @param outcomes the Outcome set from a Bin
      */
     @Override
-    public void updateWinners(Set<Outcome> outcomes) {
+    public void notifyWinners(Set<Outcome> outcomes) {
         if (outcomes.contains(RED)) {
             redCount++;
         } else {
             redCount = 0;
         }
+    }
+
+    @Override
+    public void newRound() {
+        super.newRound();
+        redCount = 0;
     }
 }
