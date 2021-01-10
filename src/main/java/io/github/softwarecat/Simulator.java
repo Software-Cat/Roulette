@@ -50,6 +50,14 @@ public class Simulator {
      */
     public int samples = 50;
 
+    public double meanDuration;
+
+    public double stdDuration;
+
+    public double meanMaximum;
+
+    public double stdMaximum;
+
     /**
      * A List of lengths of time the Player remained in the game. Each session of play producrs a duration metric,
      * which are collected into this list.
@@ -131,5 +139,11 @@ public class Simulator {
                     .max()
                     .orElse(initialStake));
         }
+
+        meanDuration = IntegerStatistics.mean(durations);
+        stdDuration = IntegerStatistics.std(durations);
+
+        meanMaximum = IntegerStatistics.mean(maxima);
+        stdMaximum = IntegerStatistics.std(maxima);
     }
 }

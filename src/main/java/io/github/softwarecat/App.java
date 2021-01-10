@@ -34,7 +34,7 @@ public class App {
 
         Table table = new Table(wheel);
 
-        Player player = new SevenReds(table);
+        Player player = new Martingale(table);
 
         Game game = new Game(wheel, table);
 
@@ -57,8 +57,9 @@ public class App {
             System.out.println("Player placed invalid bet.");
         }
 
-        for (int i = 0; i < simulator.maxima.size(); i++) {
-            System.out.println("Round " + (i + 1) + ": " + "max=" + simulator.maxima.get(i) + " len=" + simulator.durations.get(i));
-        }
+        System.out.println("Mean Duration: " + simulator.meanDuration);
+        System.out.println("Duration STD: " + simulator.stdDuration);
+        System.out.println("Mean Maximum: " + simulator.meanMaximum);
+        System.out.println("Maximum STD: " + simulator.stdMaximum);
     }
 }
