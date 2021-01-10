@@ -30,10 +30,8 @@ package io.github.softwarecat;
  */
 public class Martingale extends Player {
 
+    protected static final int BASE_BET = Game.TABLE_MINIMUM;
     protected final Outcome BLACK;
-
-    protected final int BASE_BET = Game.TABLE_MINIMUM;
-
     /**
      * The number of losses. This is the number of times to double the bet.
      */

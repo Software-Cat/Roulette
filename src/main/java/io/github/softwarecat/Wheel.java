@@ -32,7 +32,7 @@ import java.util.*;
  */
 public class Wheel {
 
-    private final Map<String, Outcome> allOutcomes = new HashMap<>();
+    protected final Map<String, Outcome> allOutcomes = new HashMap<>();
 
     /**
      * Contains the individual Bin instances.

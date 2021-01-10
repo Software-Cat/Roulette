@@ -24,14 +24,23 @@
 
 package io.github.softwarecat;
 
-/**
- * Passenger57 constructs a Bet based on the Outcome named "Black".
- * This is a very persistent player indeed.
- */
-public class Passenger57 extends Player {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class RandomPlayer extends Player {
 
     protected static final int BET_AMOUNT = Game.TABLE_MINIMUM;
-    protected final Outcome BLACK;
+
+    protected final Random RNG;
+
+    protected final List<Outcome> ALL_OUTCOMES;
+
+    public RandomPlayer(Table table, Random rng) {
+        super(table);
+        RNG = rng;
+        ALL_OUTCOMES = new ArrayList<>(table.wheel.allOutcomes.values());
+    }
 
     /**
      * Constructs the Player with a specific Table for placing Bets.
@@ -39,34 +48,18 @@ public class Passenger57 extends Player {
      *
      * @param table the table to use
      */
-    public Passenger57(Table table) {
-        super(table);
-
-        BLACK = table.wheel.getOutcomes(Game.BET_NAMES.getString("black")).get(0);
+    public RandomPlayer(Table table) {
+        this(table, new Random());
     }
 
     @Override
     public boolean playing() {
-        return (stake >= BET_AMOUNT) && (roundsToGo > 0);
+        return (BET_AMOUNT <= stake) && (roundsToGo > 0);
     }
 
     @Override
     public void placeBets() throws InvalidBetException {
-        table.placeBet(new Bet(BET_AMOUNT, BLACK, this));
-    }
-
-    @Override
-    public void newRound() {
-
-    }
-
-    @Override
-    public void win(Bet bet) {
-        super.win(bet);
-    }
-
-    @Override
-    public void lose(Bet bet) {
-        super.lose(bet);
+        Outcome outcomeToBet = ALL_OUTCOMES.get(RNG.nextInt(ALL_OUTCOMES.size()));
+        table.placeBet(new Bet(BET_AMOUNT, outcomeToBet));
     }
 }
