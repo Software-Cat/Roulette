@@ -26,22 +26,53 @@ package io.github.softwarecat;
 
 import java.util.List;
 
+
+/**
+ * IntegerStatistics computes several simple descriptive statistics of Integer values in a List.
+ * Like the java.util.Math class, this class simply has a bunch of ‘static’ methods.
+ */
 public class IntegerStatistics {
 
+    /**
+     * Returns the sum of elements in the {@link List<Integer>}.
+     *
+     * @param values the list
+     * @return the sum of elements in the list
+     */
     public static int sum(List<Integer> values) {
         return values.stream()
                 .mapToInt(Integer::valueOf)
                 .sum();
     }
 
+    /**
+     * Returns the number of elements in the list.  If the list contains
+     * more than {@code Integer.MAX_VALUE} elements, returns
+     * {@code Integer.MAX_VALUE}.
+     *
+     * @param values the list
+     * @return the number of elements in the list
+     */
     public static int len(List<Integer> values) {
         return values.size();
     }
 
+    /**
+     * Computes the mean of the List of Integer values.
+     *
+     * @param values the list of values we are summarizing
+     * @return the mean of the elements in the list
+     */
     public static double mean(List<Integer> values) {
         return (double) sum(values) / len(values);
     }
 
+    /**
+     * Computes the standard deviation of the List of Integer values.
+     *
+     * @param values the list of values we are summarizing
+     * @return the standard deviation of the elements in the list
+     */
     public static double std(List<Integer> values) {
         double mean = mean(values);
 
