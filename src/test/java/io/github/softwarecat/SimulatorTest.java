@@ -72,7 +72,7 @@ public class SimulatorTest {
         try {
             sessionResult = simulator.session();
         } catch (InvalidBetException e) {
-            fail("Player is broken, should not place invalid bet.");
+            fail("Player is broken, should not place invalid bet");
         }
 
         assertEquals(simulator.sessionDuration, sessionResult.size());
@@ -107,7 +107,7 @@ public class SimulatorTest {
         try {
             simulator.gather();
         } catch (InvalidBetException e) {
-            fail("Unit test for simulator.gather() is broken.");
+            fail("Unit test for simulator.gather() is broken");
         }
 
         assertEquals(IntStream.range(0, simulator.samples)

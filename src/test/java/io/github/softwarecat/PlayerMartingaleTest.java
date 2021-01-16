@@ -71,7 +71,7 @@ public class PlayerMartingaleTest {
         try {
             player.placeBets();
         } catch (InvalidBetException e) {
-            fail("Player should not fail in placing bet under the designated test condition.");
+            fail("Player should not fail in placing bet under the designated test condition");
         }
 
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
@@ -86,7 +86,7 @@ public class PlayerMartingaleTest {
         try {
             player.placeBets();
         } catch (InvalidBetException e) {
-            fail("Player should not fail in placing bet under the designated test condition.");
+            fail("Player should not fail in placing bet under the designated test condition");
         }
 
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
@@ -101,7 +101,7 @@ public class PlayerMartingaleTest {
         try {
             player.placeBets();
         } catch (InvalidBetException e) {
-            fail("Player should not fail in placing bet under the designated test condition.");
+            fail("Player should not fail in placing bet under the designated test condition");
         }
 
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
