@@ -38,13 +38,13 @@ public class Outcome {
     /**
      * Holds the name of the Outcome. Examples include "1", "Red".
      */
-    protected final String name;
+    protected final String NAME;
 
     /**
      * Holds the payout odds for this Outcome. Most odds are stated as 1:1 or 17:1, we only keep the
      * numerator (17) and assume the denominator is 1.
      */
-    protected final int odds;
+    protected final int ODDS;
 
     /**
      * Sets the instance name and odds from the parameter name and odds.
@@ -53,8 +53,8 @@ public class Outcome {
      * @param odds the payout odds of this outcome
      */
     public Outcome(String name, int odds) {
-        this.name = name;
-        this.odds = odds;
+        this.NAME = name;
+        this.ODDS = odds;
     }
 
     /**
@@ -64,7 +64,7 @@ public class Outcome {
      * @return amount won based on the outcome’s odds and the amount bet
      */
     public int winAmount(int amount) {
-        return odds * amount;
+        return ODDS * amount;
     }
 
     /**
@@ -78,12 +78,12 @@ public class Outcome {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
         Outcome outcome = (Outcome) other;
-        return Objects.equals(name, outcome.name);
+        return Objects.equals(NAME, outcome.NAME);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Objects.hash(NAME);
     }
 
     /**
@@ -93,6 +93,6 @@ public class Outcome {
      */
     @Override
     public String toString() {
-        return String.format("%s (%s:1)", name, odds);
+        return String.format("%s (%s:1)", NAME, ODDS);
     }
 }

@@ -52,7 +52,7 @@ public class PlayerRandomTest {
         BinBuilder binBuilder = new BinBuilder();
         binBuilder.buildBins(wheel);
 
-        ALL_OUTCOMES = new ArrayList<>(wheel.allOutcomes.values());
+        ALL_OUTCOMES = new ArrayList<>(wheel.ALL_OUTCOMES.values());
 
         table = new Table(wheel);
 
@@ -79,10 +79,10 @@ public class PlayerRandomTest {
         for (int i = 0; i < 1000; i++) {
             // Generate expected outcome with known RNG
             Outcome expectedOutcome = ALL_OUTCOMES.get(rng.nextInt(ALL_OUTCOMES.size()));
-            Bet expectedBet = new Bet(player.BET_AMOUNT, expectedOutcome, player);
+            Bet expectedBet = new Bet(player.baseBet, expectedOutcome, player);
 
             // Player bet placing
-            player.stake = player.BET_AMOUNT;
+            player.stake = player.baseBet;
             try {
                 player.placeBets();
             } catch (InvalidBetException e) {
