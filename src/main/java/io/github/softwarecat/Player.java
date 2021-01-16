@@ -51,7 +51,7 @@ public abstract class Player {
 
     /**
      * Constructs the Player with a specific Table for placing Bets.
-     * Since the table has access to the Wheel, we can use this WHEEL to extract Outcome objects.
+     * Since the table has access to the Wheel, we can use this wheel to extract Outcome objects.
      *
      * @param table the table to use
      */

@@ -83,7 +83,7 @@ public class PlayerSevenRedsTest {
         }
         Bet bet = table.iterator().next();
         assertEquals(BLACK, bet.outcome);
-        assertEquals(player.baseBet, bet.amountBet);
+        assertEquals(player.BASE_BET, bet.amountBet);
 
         // Clear the table
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
@@ -101,7 +101,7 @@ public class PlayerSevenRedsTest {
         }
         bet = table.iterator().next();
         assertEquals(BLACK, bet.outcome);
-        assertEquals(player.baseBet * 2, bet.amountBet);
+        assertEquals(player.BASE_BET * 2, bet.amountBet);
 
         // Clear the table
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
