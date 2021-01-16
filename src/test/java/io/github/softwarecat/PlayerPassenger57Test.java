@@ -31,7 +31,7 @@ import java.util.ListIterator;
 
 import static org.junit.Assert.*;
 
-public class Passenger57Test {
+public class PlayerPassenger57Test {
 
     Wheel wheel;
 
@@ -47,7 +47,7 @@ public class Passenger57Test {
 
         table = new Table(wheel);
 
-        player = new Passenger57(table);
+        player = new PlayerPassenger57(table);
         player.stake = 100;
     }
 

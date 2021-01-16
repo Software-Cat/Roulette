@@ -41,7 +41,7 @@ public class SimulatorTest {
 
     Table table;
 
-    Passenger57 player;
+    PlayerPassenger57 player;
 
     Game game;
 
@@ -59,7 +59,7 @@ public class SimulatorTest {
 
         table = new Table(wheel);
 
-        player = new Passenger57(table);
+        player = new PlayerPassenger57(table);
 
         game = new Game(wheel, table);
 
@@ -83,9 +83,9 @@ public class SimulatorTest {
             boolean shouldWin = winningBin.contains(wheel.getOutcomes(Game.BET_NAMES.getString("black")).get(0));
 
             if (shouldWin) {
-                expectedStake += Passenger57.BET_AMOUNT;
+                expectedStake += PlayerPassenger57.BET_AMOUNT;
             } else {
-                expectedStake -= Passenger57.BET_AMOUNT;
+                expectedStake -= PlayerPassenger57.BET_AMOUNT;
             }
 
             assertEquals(expectedStake, result);

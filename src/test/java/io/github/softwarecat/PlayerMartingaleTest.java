@@ -31,13 +31,13 @@ import java.util.ListIterator;
 
 import static org.junit.Assert.*;
 
-public class MartingaleTest {
+public class PlayerMartingaleTest {
 
     Wheel wheel;
 
     Table table;
 
-    Martingale player;
+    PlayerMartingale player;
 
     @Before
     public void setUp() {
@@ -47,7 +47,7 @@ public class MartingaleTest {
         binBuilder.buildBins(wheel);
 
         table = new Table(wheel);
-        player = new Martingale(table);
+        player = new PlayerMartingale(table);
         player.stake = 100;
     }
 
@@ -76,7 +76,7 @@ public class MartingaleTest {
 
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
             Bet bet = it.next();
-            assertEquals(Martingale.BASE_BET, bet.amountBet);
+            assertEquals(PlayerMartingale.BASE_BET, bet.amountBet);
             it.remove();
         }
 
@@ -91,7 +91,7 @@ public class MartingaleTest {
 
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
             Bet bet = it.next();
-            assertEquals(Martingale.BASE_BET * 2, bet.amountBet);
+            assertEquals(PlayerMartingale.BASE_BET * 2, bet.amountBet);
             it.remove();
         }
 
@@ -106,7 +106,7 @@ public class MartingaleTest {
 
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
             Bet bet = it.next();
-            assertEquals(Martingale.BASE_BET, bet.amountBet);
+            assertEquals(PlayerMartingale.BASE_BET, bet.amountBet);
             it.remove();
         }
     }

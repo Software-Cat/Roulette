@@ -51,7 +51,7 @@ public class GameTest {
         Table table = new Table(wheel);
 
         final boolean[] won = new boolean[1];
-        Player player = new Passenger57(table) {
+        Player player = new PlayerPassenger57(table) {
             @Override
             public void win(Bet bet) {
                 won[0] = true;

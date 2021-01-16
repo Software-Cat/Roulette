@@ -33,13 +33,13 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class SevenRedsTest {
+public class PlayerSevenRedsTest {
 
     Outcome RED;
     Outcome BLACK;
     Wheel wheel;
     Table table;
-    SevenReds player;
+    PlayerSevenReds player;
 
     @Before
     public void setUp() {
@@ -49,7 +49,7 @@ public class SevenRedsTest {
 
         table = new Table(wheel);
 
-        player = new SevenReds(table);
+        player = new PlayerSevenReds(table);
         player.stake = 100;
 
         RED = wheel.getOutcomes(Game.BET_NAMES.getString("red")).get(0);
@@ -83,7 +83,7 @@ public class SevenRedsTest {
         }
         Bet bet = table.iterator().next();
         assertEquals(BLACK, bet.outcome);
-        assertEquals(Martingale.BASE_BET, bet.amountBet);
+        assertEquals(PlayerMartingale.BASE_BET, bet.amountBet);
 
         // Clear the table
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
@@ -101,7 +101,7 @@ public class SevenRedsTest {
         }
         bet = table.iterator().next();
         assertEquals(BLACK, bet.outcome);
-        assertEquals(Martingale.BASE_BET * 2, bet.amountBet);
+        assertEquals(PlayerMartingale.BASE_BET * 2, bet.amountBet);
 
         // Clear the table
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {

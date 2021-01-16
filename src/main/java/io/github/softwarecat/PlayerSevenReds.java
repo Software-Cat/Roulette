@@ -27,10 +27,10 @@ package io.github.softwarecat;
 import java.util.Set;
 
 /**
- * SevenReds is a Martingale player who places bets in Roulette. This player waits until the wheel has spun red
+ * PlayerSevenReds is a PlayerMartingale player who places bets in Roulette. This player waits until the wheel has spun red
  * seven times in a row before betting black.
  */
-public class SevenReds extends Martingale {
+public class PlayerSevenReds extends PlayerMartingale {
 
     /**
      * The Outcome Red.
@@ -49,7 +49,7 @@ public class SevenReds extends Martingale {
      *
      * @param table the table to use
      */
-    public SevenReds(Table table) {
+    public PlayerSevenReds(Table table) {
         super(table);
         RED = table.wheel.getOutcomes(Game.BET_NAMES.getString("red")).get(0);
     }
