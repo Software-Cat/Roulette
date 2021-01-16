@@ -96,9 +96,7 @@ public class PlayerRandomTest {
                 it.remove();
             }
 
-            assertEquals(expectedBet.toString(), actualBet.toString());
-            assertEquals(expectedBet.parent, actualBet.parent);
-            assertEquals(expectedBet.amountBet, actualBet.amountBet);
+            assertEquals(expectedBet, actualBet);
         }
     }
 }
