@@ -27,18 +27,78 @@ package io.github.softwarecat;
 import org.junit.Before;
 import org.junit.Test;
 
-// TODO: Implement tests
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Random;
+
+import static org.junit.Assert.*;
+
 public class PlayerRandomTest {
+
+    Wheel wheel;
+
+    Table table;
+
+    PlayerRandom player;
+
+    Random rng = new Random(1);
+
+    List<Outcome> ALL_OUTCOMES;
 
     @Before
     public void setUp() {
+        wheel = new Wheel();
+        BinBuilder binBuilder = new BinBuilder();
+        binBuilder.buildBins(wheel);
+
+        ALL_OUTCOMES = new ArrayList<>(wheel.allOutcomes.values());
+
+        table = new Table(wheel);
+
+        player = new PlayerRandom(table, new Random(1));
+        player.stake = 100;
     }
 
     @Test
     public void playing() {
+        player.stake = 100;
+        player.roundsToGo = 1;
+        assertTrue(player.playing());
+
+        player.stake = 0;
+        assertFalse(player.playing());
+
+        player.stake = 100;
+        player.roundsToGo = 0;
+        assertFalse(player.playing());
     }
 
     @Test
     public void placeBets() {
+        for (int i = 0; i < 1000; i++) {
+            // Generate expected outcome with known RNG
+            Outcome expectedOutcome = ALL_OUTCOMES.get(rng.nextInt(ALL_OUTCOMES.size()));
+            Bet expectedBet = new Bet(player.BET_AMOUNT, expectedOutcome, player);
+
+            // Player bet placing
+            player.stake = player.BET_AMOUNT;
+            try {
+                player.placeBets();
+            } catch (InvalidBetException e) {
+                fail("Player should not fail in placing bet");
+            }
+
+            // Get the bet player placed
+            Bet actualBet = table.iterator().next();
+            for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
+                it.next();
+                it.remove();
+            }
+
+            assertEquals(expectedBet.toString(), actualBet.toString());
+            assertEquals(expectedBet.parent, actualBet.parent);
+            assertEquals(expectedBet.amountBet, actualBet.amountBet);
+        }
     }
 }

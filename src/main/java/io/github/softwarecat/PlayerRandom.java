@@ -60,6 +60,6 @@ public class PlayerRandom extends Player {
     @Override
     public void placeBets() throws InvalidBetException {
         Outcome outcomeToBet = ALL_OUTCOMES.get(RNG.nextInt(ALL_OUTCOMES.size()));
-        table.placeBet(new Bet(BET_AMOUNT, outcomeToBet));
+        table.placeBet(new Bet(BET_AMOUNT, outcomeToBet, this));
     }
 }

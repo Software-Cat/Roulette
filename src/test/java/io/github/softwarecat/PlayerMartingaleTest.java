@@ -41,7 +41,6 @@ public class PlayerMartingaleTest {
 
     @Before
     public void setUp() {
-
         wheel = new Wheel();
         BinBuilder binBuilder = new BinBuilder();
         binBuilder.buildBins(wheel);
