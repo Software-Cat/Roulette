@@ -33,22 +33,22 @@ import java.util.ListIterator;
  */
 public class Table {
 
-    public final Wheel wheel;
+    public final Wheel WHEEL;
 
     /**
      * This is a list of the Bets currently active. These will result in either wins or losses to the Player.
      */
-    private final LinkedList<Bet> bets = new LinkedList<>();
+    private final LinkedList<Bet> BETS = new LinkedList<>();
 
     /**
      * This is the table limit. The sum of the bets from a Player must be less than or equal to this limit.
      */
-    private final int limit;
+    private final int LIMIT;
 
     /**
      * This is the table minimum. Each individual bet from a Player must be greater than this limit.
      */
-    private final int minimum;
+    private final int MINIMUM;
 
     /**
      * Instantiates a new Table.
@@ -59,9 +59,9 @@ public class Table {
     }
 
     public Table(Wheel wheel, int limit, int minimum) {
-        this.wheel = wheel;
-        this.limit = limit;
-        this.minimum = minimum;
+        this.WHEEL = wheel;
+        this.LIMIT = limit;
+        this.MINIMUM = minimum;
     }
 
     /**
@@ -73,18 +73,18 @@ public class Table {
      */
     public void validate() throws InvalidBetException {
         // Minimum check
-        for (Bet bet : bets) {
-            if (bet.amountBet < minimum) {
+        for (Bet bet : BETS) {
+            if (bet.amountBet < MINIMUM) {
                 throw new InvalidBetException();
             }
         }
 
         // Maximum check
         int sum = 0;
-        for (Bet bet : bets) {
+        for (Bet bet : BETS) {
             sum += bet.amountBet;
         }
-        if (sum > limit) {
+        if (sum > LIMIT) {
             throw new InvalidBetException();
         }
     }
@@ -104,7 +104,7 @@ public class Table {
             }
         }
 
-        bets.add(bet);
+        BETS.add(bet);
 
         validate();
     }
@@ -115,7 +115,7 @@ public class Table {
      * @return iterator over all bets
      */
     public ListIterator<Bet> iterator() {
-        return bets.listIterator();
+        return BETS.listIterator();
     }
 
     /**
@@ -123,6 +123,6 @@ public class Table {
      */
     @Override
     public String toString() {
-        return bets.toString();
+        return BETS.toString();
     }
 }

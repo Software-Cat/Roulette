@@ -32,20 +32,20 @@ import java.util.*;
  */
 public class Wheel {
 
-    protected final Map<String, Outcome> allOutcomes = new HashMap<>();
+    protected final Map<String, Outcome> ALL_OUTCOMES = new HashMap<>();
 
     /**
      * Contains the individual Bin instances.
      * This is always a 'new List( 38 )'.
      */
-    private final List<Bin> bins;
+    private final List<Bin> BINS;
 
     /**
      * The random number generator to use to select a Bin from the bins collection.
      * This is not always simply ‘new java.util.Random()’. For testing, we would
      * inject a non-random random number generator in place of the system random number generator.
      */
-    private final Random rng;
+    private final Random RNG;
 
     /**
      * Create a wheel that will use a the default random number generator. The java.util.Random will be
@@ -67,9 +67,9 @@ public class Wheel {
         for (int i = 0; i < 38; i++) {
             bins.add(new Bin());
         }
-        this.bins = bins;
+        this.BINS = bins;
 
-        this.rng = rng;
+        this.RNG = rng;
     }
 
     /**
@@ -80,10 +80,10 @@ public class Wheel {
      */
     public void addOutcome(int bin, Outcome outcome) {
         // Update Bin
-        bins.get(bin).add(outcome);
+        BINS.get(bin).add(outcome);
 
         // Update Map of all possible Outcomes
-        allOutcomes.put(outcome.toString(), outcome);
+        ALL_OUTCOMES.put(outcome.toString(), outcome);
     }
 
     /**
@@ -92,7 +92,7 @@ public class Wheel {
      * @return a Bin selected at random from the wheel
      */
     public Bin next() {
-        return bins.get(rng.nextInt(38));
+        return BINS.get(RNG.nextInt(38));
     }
 
     /**
@@ -102,7 +102,7 @@ public class Wheel {
      * @return the requested Bin
      */
     public Bin getBin(int bin) {
-        return bins.get(bin);
+        return BINS.get(bin);
     }
 
     /**
@@ -113,7 +113,7 @@ public class Wheel {
      */
     public List<Outcome> getOutcomes(String name) {
         List<Outcome> result = new ArrayList<>();
-        for (Map.Entry<String, Outcome> entry : allOutcomes.entrySet()) {
+        for (Map.Entry<String, Outcome> entry : ALL_OUTCOMES.entrySet()) {
             if (entry.getKey().contains(name)) {
                 result.add(entry.getValue());
             }

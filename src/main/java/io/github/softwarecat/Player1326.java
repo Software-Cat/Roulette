@@ -65,7 +65,7 @@ public class Player1326 extends Player {
     public Player1326(Table table) {
         super(table);
 
-        OUTCOME = table.wheel.getOutcomes(Game.BET_NAMES.getString("black")).get(0);
+        OUTCOME = table.WHEEL.getOutcomes(Game.BET_NAMES.getString("black")).get(0);
 
         state = new NoWins(this);
     }

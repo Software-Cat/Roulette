@@ -51,7 +51,7 @@ public class PlayerSevenReds extends PlayerMartingale {
      */
     public PlayerSevenReds(Table table) {
         super(table);
-        RED = table.wheel.getOutcomes(Game.BET_NAMES.getString("red")).get(0);
+        RED = table.WHEEL.getOutcomes(Game.BET_NAMES.getString("red")).get(0);
     }
 
     /**
