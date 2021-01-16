@@ -68,7 +68,7 @@ public class GameTest {
         try {
             game.cycle(player);
         } catch (InvalidBetException e) {
-            fail("Player placed invalid bet.");
+            fail("Player placed invalid bet");
         }
 
         int wheelResult = random.nextInt(38);

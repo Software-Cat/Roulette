@@ -24,6 +24,8 @@
 
 package io.github.softwarecat;
 
+import java.util.Objects;
+
 /**
  * Bet associates an amount with an Outcome and a Player.
  */
@@ -90,5 +92,18 @@ public class Bet {
     @Override
     public String toString() {
         return amountBet + " on " + outcome;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bet bet = (Bet) o;
+        return amountBet == bet.amountBet && outcome.equals(bet.outcome) && Objects.equals(parent, bet.parent);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(amountBet, outcome, parent);
     }
 }

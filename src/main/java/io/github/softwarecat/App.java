@@ -34,7 +34,7 @@ public class App {
 
         Table table = new Table(wheel);
 
-        Player player = new PlayerRandom(table);
+        Player player = new Player1326(table);
 
         Game game = new Game(wheel, table);
 
