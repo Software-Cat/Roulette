@@ -31,28 +31,29 @@ package io.github.softwarecat;
 public class PlayerPassenger57 extends Player {
 
     protected final Outcome BLACK;
-    protected int BET_AMOUNT = Game.TABLE_MINIMUM;
+
+    protected int baseBet = Game.TABLE_MINIMUM;
 
     /**
      * Constructs the Player with a specific Table for placing Bets.
-     * Since the table has access to the Wheel, we can use this wheel to extract Outcome objects.
+     * Since the table has access to the Wheel, we can use this WHEEL to extract Outcome objects.
      *
      * @param table the table to use
      */
     public PlayerPassenger57(Table table) {
         super(table);
 
-        BLACK = table.wheel.getOutcomes(Game.BET_NAMES.getString("black")).get(0);
+        BLACK = table.WHEEL.getOutcomes(Game.BET_NAMES.getString("black")).get(0);
     }
 
     @Override
     public boolean playing() {
-        return (stake >= BET_AMOUNT) && (roundsToGo > 0);
+        return (stake >= baseBet) && (roundsToGo > 0);
     }
 
     @Override
     public void placeBets() throws InvalidBetException {
-        table.placeBet(new Bet(BET_AMOUNT, BLACK, this));
+        table.placeBet(new Bet(baseBet, BLACK, this));
     }
 
     @Override

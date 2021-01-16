@@ -76,7 +76,7 @@ public class PlayerMartingaleTest {
 
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
             Bet bet = it.next();
-            assertEquals(player.BASE_BET, bet.amountBet);
+            assertEquals(player.baseBet, bet.amountBet);
             it.remove();
         }
 
@@ -91,7 +91,7 @@ public class PlayerMartingaleTest {
 
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
             Bet bet = it.next();
-            assertEquals(player.BASE_BET * 2, bet.amountBet);
+            assertEquals(player.baseBet * 2, bet.amountBet);
             it.remove();
         }
 
@@ -106,7 +106,7 @@ public class PlayerMartingaleTest {
 
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
             Bet bet = it.next();
-            assertEquals(player.BASE_BET, bet.amountBet);
+            assertEquals(player.baseBet, bet.amountBet);
             it.remove();
         }
     }
