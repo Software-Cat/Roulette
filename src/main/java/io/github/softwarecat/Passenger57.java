@@ -31,6 +31,7 @@ package io.github.softwarecat;
 public class Passenger57 extends Player {
 
     protected static final int BET_AMOUNT = Game.TABLE_MINIMUM;
+
     protected final Outcome BLACK;
 
     /**
