@@ -24,11 +24,12 @@
 
 package io.github.softwarecat;
 
+
 public class Player1326 extends Player {
 
     protected final Outcome OUTCOME;
 
-    protected int BASE_BET = Game.TABLE_MINIMUM;
+    protected int baseBet = Game.TABLE_MINIMUM;
 
     protected State state;
 
@@ -41,17 +42,31 @@ public class Player1326 extends Player {
     public Player1326(Table table) {
         super(table);
 
-        OUTCOME = table.wheel.getOutcomes("Black").get(0);
+        OUTCOME = table.wheel.getOutcomes(Game.BET_NAMES.getString("black")).get(0);
+
+        state = new NoWins(this);
     }
 
     @Override
     public boolean playing() {
-        return false;
+        return (stake >= state.currentBet().amountBet) && (roundsToGo > 0);
     }
 
     @Override
     public void placeBets() throws InvalidBetException {
+        table.placeBet(state.currentBet());
+    }
 
+    @Override
+    public void win(Bet bet) {
+        super.win(bet);
+        state = state.nextWon();
+    }
+
+    @Override
+    public void lose(Bet bet) {
+        super.lose(bet);
+        state = state.nextLost();
     }
 
     protected abstract class State {
@@ -79,7 +94,7 @@ public class Player1326 extends Player {
 
         @Override
         public Bet currentBet() {
-            return new Bet(player.BASE_BET, player.OUTCOME, player);
+            return new Bet(player.baseBet, player.OUTCOME, player);
         }
 
         @Override
@@ -96,7 +111,7 @@ public class Player1326 extends Player {
 
         @Override
         public Bet currentBet() {
-            return new Bet(player.BASE_BET * 3, player.OUTCOME, player);
+            return new Bet(player.baseBet * 3, player.OUTCOME, player);
         }
 
         @Override
@@ -113,7 +128,7 @@ public class Player1326 extends Player {
 
         @Override
         public Bet currentBet() {
-            return new Bet(player.BASE_BET * 2, player.OUTCOME, player);
+            return new Bet(player.baseBet * 2, player.OUTCOME, player);
         }
 
         @Override
@@ -130,7 +145,7 @@ public class Player1326 extends Player {
 
         @Override
         public Bet currentBet() {
-            return new Bet(player.BASE_BET * 6, player.OUTCOME, player);
+            return new Bet(player.baseBet * 6, player.OUTCOME, player);
         }
 
         @Override
