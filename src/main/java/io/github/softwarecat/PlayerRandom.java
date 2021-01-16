@@ -30,11 +30,11 @@ import java.util.Random;
 
 public class PlayerRandom extends Player {
 
-    protected static final int BET_AMOUNT = Game.TABLE_MINIMUM;
-
     protected final Random RNG;
 
     protected final List<Outcome> ALL_OUTCOMES;
+
+    protected int BET_AMOUNT = Game.TABLE_MINIMUM;
 
     public PlayerRandom(Table table, Random rng) {
         super(table);
