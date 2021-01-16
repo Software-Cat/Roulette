@@ -83,9 +83,9 @@ public class SimulatorTest {
             boolean shouldWin = winningBin.contains(wheel.getOutcomes(Game.BET_NAMES.getString("black")).get(0));
 
             if (shouldWin) {
-                expectedStake += player.baseBet;
+                expectedStake += player.BET_AMOUNT;
             } else {
-                expectedStake -= player.baseBet;
+                expectedStake -= player.BET_AMOUNT;
             }
 
             assertEquals(expectedStake, result);

@@ -27,17 +27,24 @@ package io.github.softwarecat;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
+import java.util.Random;
 
 import static org.junit.Assert.*;
 
-public class PlayerMartingaleTest {
+public class PlayerRandomTest {
 
     Wheel wheel;
 
     Table table;
 
-    PlayerMartingale player;
+    PlayerRandom player;
+
+    Random rng = new Random(1);
+
+    List<Outcome> ALL_OUTCOMES;
 
     @Before
     public void setUp() {
@@ -45,8 +52,11 @@ public class PlayerMartingaleTest {
         BinBuilder binBuilder = new BinBuilder();
         binBuilder.buildBins(wheel);
 
+        ALL_OUTCOMES = new ArrayList<>(wheel.allOutcomes.values());
+
         table = new Table(wheel);
-        player = new PlayerMartingale(table);
+
+        player = new PlayerRandom(table, new Random(1));
         player.stake = 100;
     }
 
@@ -66,47 +76,29 @@ public class PlayerMartingaleTest {
 
     @Test
     public void placeBets() {
-        // Initial bet should be normal
-        try {
-            player.placeBets();
-        } catch (InvalidBetException e) {
-            fail("Player should not fail in placing bet under the designated test condition.");
-        }
+        for (int i = 0; i < 1000; i++) {
+            // Generate expected outcome with known RNG
+            Outcome expectedOutcome = ALL_OUTCOMES.get(rng.nextInt(ALL_OUTCOMES.size()));
+            Bet expectedBet = new Bet(player.BET_AMOUNT, expectedOutcome, player);
 
-        for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
-            Bet bet = it.next();
-            assertEquals(player.BASE_BET, bet.amountBet);
-            it.remove();
-        }
+            // Player bet placing
+            player.stake = player.BET_AMOUNT;
+            try {
+                player.placeBets();
+            } catch (InvalidBetException e) {
+                fail("Player should not fail in placing bet");
+            }
 
-        // Bet after losing should be doubled
-        player.lose(new Bet(1, new Outcome("Name", 1)));
+            // Get the bet player placed
+            Bet actualBet = table.iterator().next();
+            for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
+                it.next();
+                it.remove();
+            }
 
-        try {
-            player.placeBets();
-        } catch (InvalidBetException e) {
-            fail("Player should not fail in placing bet under the designated test condition.");
-        }
-
-        for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
-            Bet bet = it.next();
-            assertEquals(player.BASE_BET * 2, bet.amountBet);
-            it.remove();
-        }
-
-        // Bet after winning should reset
-        player.win(new Bet(1, new Outcome("Name", 1)));
-
-        try {
-            player.placeBets();
-        } catch (InvalidBetException e) {
-            fail("Player should not fail in placing bet under the designated test condition.");
-        }
-
-        for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
-            Bet bet = it.next();
-            assertEquals(player.BASE_BET, bet.amountBet);
-            it.remove();
+            assertEquals(expectedBet.toString(), actualBet.toString());
+            assertEquals(expectedBet.parent, actualBet.parent);
+            assertEquals(expectedBet.amountBet, actualBet.amountBet);
         }
     }
 }

@@ -34,17 +34,17 @@ public class PlayerRandom extends Player {
 
     protected final List<Outcome> ALL_OUTCOMES;
 
-    protected int baseBet = Game.TABLE_MINIMUM;
+    protected int BET_AMOUNT = Game.TABLE_MINIMUM;
 
     public PlayerRandom(Table table, Random rng) {
         super(table);
         RNG = rng;
-        ALL_OUTCOMES = new ArrayList<>(table.WHEEL.ALL_OUTCOMES.values());
+        ALL_OUTCOMES = new ArrayList<>(table.wheel.allOutcomes.values());
     }
 
     /**
      * Constructs the Player with a specific Table for placing Bets.
-     * Since the table has access to the Wheel, we can use this WHEEL to extract Outcome objects.
+     * Since the table has access to the Wheel, we can use this wheel to extract Outcome objects.
      *
      * @param table the table to use
      */
@@ -54,12 +54,12 @@ public class PlayerRandom extends Player {
 
     @Override
     public boolean playing() {
-        return (baseBet <= stake) && (roundsToGo > 0);
+        return (BET_AMOUNT <= stake) && (roundsToGo > 0);
     }
 
     @Override
     public void placeBets() throws InvalidBetException {
         Outcome outcomeToBet = ALL_OUTCOMES.get(RNG.nextInt(ALL_OUTCOMES.size()));
-        table.placeBet(new Bet(baseBet, outcomeToBet));
+        table.placeBet(new Bet(BET_AMOUNT, outcomeToBet, this));
     }
 }
