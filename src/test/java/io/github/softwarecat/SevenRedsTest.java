@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright © 2021 Bowen Wu
+ * Copyright © 2021 Bowen Wu. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -83,7 +83,7 @@ public class SevenRedsTest {
         }
         Bet bet = table.iterator().next();
         assertEquals(BLACK, bet.outcome);
-        assertEquals(player.BASE_BET, bet.amountBet);
+        assertEquals(Martingale.BASE_BET, bet.amountBet);
 
         // Clear the table
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
@@ -101,7 +101,7 @@ public class SevenRedsTest {
         }
         bet = table.iterator().next();
         assertEquals(BLACK, bet.outcome);
-        assertEquals(player.BASE_BET * 2, bet.amountBet);
+        assertEquals(Martingale.BASE_BET * 2, bet.amountBet);
 
         // Clear the table
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {

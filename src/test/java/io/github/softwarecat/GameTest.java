@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright © 2021 Bowen Wu
+ * Copyright © 2021 Bowen Wu. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright © 2021 Bowen Wu
+ * Copyright © 2021 Bowen Wu. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -76,7 +76,7 @@ public class MartingaleTest {
 
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
             Bet bet = it.next();
-            assertEquals(player.BASE_BET, bet.amountBet);
+            assertEquals(Martingale.BASE_BET, bet.amountBet);
             it.remove();
         }
 
@@ -91,7 +91,7 @@ public class MartingaleTest {
 
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
             Bet bet = it.next();
-            assertEquals(player.BASE_BET * 2, bet.amountBet);
+            assertEquals(Martingale.BASE_BET * 2, bet.amountBet);
             it.remove();
         }
 
@@ -106,7 +106,7 @@ public class MartingaleTest {
 
         for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
             Bet bet = it.next();
-            assertEquals(player.BASE_BET, bet.amountBet);
+            assertEquals(Martingale.BASE_BET, bet.amountBet);
             it.remove();
         }
     }

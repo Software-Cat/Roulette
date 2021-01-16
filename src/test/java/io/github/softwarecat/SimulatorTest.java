@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright © 2021 Bowen Wu
+ * Copyright © 2021 Bowen Wu. All rights reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -83,9 +83,9 @@ public class SimulatorTest {
             boolean shouldWin = winningBin.contains(wheel.getOutcomes(Game.BET_NAMES.getString("black")).get(0));
 
             if (shouldWin) {
-                expectedStake += player.BET_AMOUNT;
+                expectedStake += Passenger57.BET_AMOUNT;
             } else {
-                expectedStake -= player.BET_AMOUNT;
+                expectedStake -= Passenger57.BET_AMOUNT;
             }
 
             assertEquals(expectedStake, result);
