@@ -56,11 +56,11 @@ public class Game {
     /**
      * The Wheel that returns a randomly selected Bin of Outcomes.
      */
-    protected final Wheel WHEEL;
+    private final Wheel wheel;
     /**
      * The Table which contains the Bets placed by the Player.
      */
-    protected final Table TABLE;
+    private final Table table;
 
     /**
      * Constructs a new Game, using a given Wheel and Table.
@@ -69,8 +69,8 @@ public class Game {
      * @param table the Table instance which holds bets to be resolved
      */
     public Game(Wheel wheel, Table table) {
-        this.WHEEL = wheel;
-        this.TABLE = table;
+        this.wheel = wheel;
+        this.table = table;
     }
 
     /**
@@ -88,13 +88,13 @@ public class Game {
         // Notify player to place bets
         player.placeBets();
 
-        // Spin WHEEL for winners
-        Bin winningBin = WHEEL.next();
+        // Spin wheel for winners
+        Bin winningBin = wheel.next();
 
         // See which bets won or lost
         List<Bet> winningBets = new ArrayList<>();
         List<Bet> losingBets = new ArrayList<>();
-        for (ListIterator<Bet> it = TABLE.iterator(); it.hasNext(); ) {
+        for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
             Bet bet = it.next();
             if (winningBin.contains(bet.outcome)) {
                 winningBets.add(bet);
