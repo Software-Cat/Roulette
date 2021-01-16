@@ -73,11 +73,16 @@ public class Player1326 extends Player {
 
         protected Player1326 player;
 
-        public State(Player1326 player) {
+        protected int multiplier;
+
+        public State(Player1326 player, int multiplier) {
             this.player = player;
+            this.multiplier = multiplier;
         }
 
-        public abstract Bet currentBet();
+        public Bet currentBet() {
+            return new Bet(player.baseBet * multiplier, player.OUTCOME, player);
+        }
 
         public abstract State nextWon();
 
@@ -89,12 +94,7 @@ public class Player1326 extends Player {
     protected class NoWins extends State {
 
         public NoWins(Player1326 player) {
-            super(player);
-        }
-
-        @Override
-        public Bet currentBet() {
-            return new Bet(player.baseBet, player.OUTCOME, player);
+            super(player, 1);
         }
 
         @Override
@@ -106,12 +106,7 @@ public class Player1326 extends Player {
     protected class OneWin extends State {
 
         public OneWin(Player1326 player) {
-            super(player);
-        }
-
-        @Override
-        public Bet currentBet() {
-            return new Bet(player.baseBet * 3, player.OUTCOME, player);
+            super(player, 3);
         }
 
         @Override
@@ -123,12 +118,7 @@ public class Player1326 extends Player {
     protected class TwoWins extends State {
 
         public TwoWins(Player1326 player) {
-            super(player);
-        }
-
-        @Override
-        public Bet currentBet() {
-            return new Bet(player.baseBet * 2, player.OUTCOME, player);
+            super(player, 2);
         }
 
         @Override
@@ -140,12 +130,7 @@ public class Player1326 extends Player {
     protected class ThreeWins extends State {
 
         public ThreeWins(Player1326 player) {
-            super(player);
-        }
-
-        @Override
-        public Bet currentBet() {
-            return new Bet(player.baseBet * 6, player.OUTCOME, player);
+            super(player, 6);
         }
 
         @Override
