@@ -25,6 +25,9 @@
 package io.github.softwarecat;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Player1326 follows the 1-3-2-6 betting system. The player has a preferred Outcome, an even money bet like red,
  * black, even, odd, high or low. The player also has a current betting state that determines the current bet to place, and
@@ -36,6 +39,11 @@ public class Player1326 extends Player {
      * This is the player’s preferred Outcome. During construction, the Player must fetch this from the Wheel.
      */
     protected final Outcome OUTCOME;
+
+    /**
+     * The State factory.
+     */
+    protected final StateFactory STATE_FACTORY = new StateFactory(this);
 
     /**
      * The Base bet.
@@ -103,6 +111,83 @@ public class Player1326 extends Player {
     }
 
     /**
+     * The enum State type.
+     */
+    protected enum StateType {
+        /**
+         * No wins state type.
+         */
+        NO_WINS,
+        /**
+         * One win state type.
+         */
+        ONE_WIN,
+        /**
+         * Two wins state type.
+         */
+        TWO_WINS,
+        /**
+         * Three wins state type.
+         */
+        THREE_WINS
+    }
+
+    /**
+     * A Factory object that produces state objects. This Factory can retain a small pool of object instances, eliminating
+     * needless object construction.
+     */
+    protected class StateFactory {
+
+        /**
+         * This is a map from a StateType to an instance of State.
+         */
+        protected Map<StateType, State> states = new HashMap<>();
+
+        /**
+         * The Player.
+         */
+        protected Player1326 player;
+
+        /**
+         * Create a new mapping from the class name to object instance. There are only four objects, so this is relatively
+         * simple.
+         *
+         * @param player the player to create the states for
+         */
+        public StateFactory(Player1326 player) {
+            this.player = player;
+        }
+
+        /**
+         * Gets the state corresponding to the StateType.
+         *
+         * @param type the type of state to get
+         * @return the state object
+         */
+        public State getState(StateType type) {
+            // Lazy creation
+            if (!states.containsKey(type)) {
+                switch (type) {
+                    case NO_WINS:
+                        states.put(StateType.NO_WINS, new NoWins(player));
+                        break;
+                    case ONE_WIN:
+                        states.put(StateType.ONE_WIN, new OneWin(player));
+                        break;
+                    case TWO_WINS:
+                        states.put(StateType.TWO_WINS, new TwoWins(player));
+                        break;
+                    case THREE_WINS:
+                        states.put(StateType.THREE_WINS, new ThreeWins(player));
+                        break;
+                }
+            }
+
+            return states.get(type);
+        }
+    }
+
+    /**
      * Player1326.State is the superclass for all of the states in the 1-3-2-6 betting system.
      */
     protected abstract class State {
@@ -119,22 +204,15 @@ public class Player1326 extends Player {
         protected int multiplier;
 
         /**
-         * The next state to move to in the case of a win.
-         */
-        protected State nextStateWin;
-
-        /**
          * The constructor for this class saves the Player1326 which will be used to provide the Outcome on which
          * we will bet.
          *
-         * @param player       the player
-         * @param multiplier   the multiplier
-         * @param nextStateWin the next state to move to in the case of a win
+         * @param player     the player
+         * @param multiplier the multiplier
          */
-        public State(Player1326 player, int multiplier, State nextStateWin) {
+        public State(Player1326 player, int multiplier) {
             this.player = player;
             this.multiplier = multiplier;
-            this.nextStateWin = nextStateWin;
         }
 
         /**
@@ -152,9 +230,7 @@ public class Player1326 extends Player {
          *
          * @return the state
          */
-        public State nextWon() {
-            return nextStateWin;
-        }
+        public abstract State nextWon();
 
         /**
          * Constructs the new Player1326.State instance to be used when the bet was a loser. This method is the same
@@ -163,7 +239,7 @@ public class Player1326 extends Player {
          * @return the state
          */
         public State nextLost() {
-            return new NoWins(player);
+            return STATE_FACTORY.getState(StateType.NO_WINS);
         }
     }
 
@@ -179,7 +255,12 @@ public class Player1326 extends Player {
          * @param player the player
          */
         public NoWins(Player1326 player) {
-            super(player, 1, new OneWin(player));
+            super(player, 1);
+        }
+
+        @Override
+        public State nextWon() {
+            return STATE_FACTORY.getState(StateType.ONE_WIN);
         }
     }
 
@@ -195,7 +276,12 @@ public class Player1326 extends Player {
          * @param player the player
          */
         public OneWin(Player1326 player) {
-            super(player, 3, new TwoWins(player));
+            super(player, 3);
+        }
+
+        @Override
+        public State nextWon() {
+            return STATE_FACTORY.getState(StateType.TWO_WINS);
         }
     }
 
@@ -211,7 +297,12 @@ public class Player1326 extends Player {
          * @param player the player
          */
         public TwoWins(Player1326 player) {
-            super(player, 2, new ThreeWins(player));
+            super(player, 2);
+        }
+
+        @Override
+        public State nextWon() {
+            return STATE_FACTORY.getState(StateType.THREE_WINS);
         }
     }
 
@@ -227,7 +318,12 @@ public class Player1326 extends Player {
          * @param player the player
          */
         public ThreeWins(Player1326 player) {
-            super(player, 6, new NoWins(player));
+            super(player, 6);
+        }
+
+        @Override
+        public State nextWon() {
+            return STATE_FACTORY.getState(StateType.NO_WINS);
         }
     }
 }
