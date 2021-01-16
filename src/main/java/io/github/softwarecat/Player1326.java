@@ -56,7 +56,7 @@ public class Player1326 extends Player {
 
     protected abstract class State {
 
-        Player1326 player;
+        protected Player1326 player;
 
         public State(Player1326 player) {
             this.player = player;
@@ -84,10 +84,60 @@ public class Player1326 extends Player {
 
         @Override
         public State nextWon() {
-            return null;
+            return new OneWin(player);
         }
     }
 
+    protected class OneWin extends State {
+
+        public OneWin(Player1326 player) {
+            super(player);
+        }
+
+        @Override
+        public Bet currentBet() {
+            return new Bet(player.BASE_BET * 3, player.OUTCOME, player);
+        }
+
+        @Override
+        public State nextWon() {
+            return new TwoWins(player);
+        }
+    }
+
+    protected class TwoWins extends State {
+
+        public TwoWins(Player1326 player) {
+            super(player);
+        }
+
+        @Override
+        public Bet currentBet() {
+            return new Bet(player.BASE_BET * 2, player.OUTCOME, player);
+        }
+
+        @Override
+        public State nextWon() {
+            return new ThreeWins(player);
+        }
+    }
+
+    protected class ThreeWins extends State {
+
+        public ThreeWins(Player1326 player) {
+            super(player);
+        }
+
+        @Override
+        public Bet currentBet() {
+            return new Bet(player.BASE_BET * 6, player.OUTCOME, player);
+        }
+
+        @Override
+        public State nextWon() {
+            return new NoWins(player);
+        }
+    }
 }
 
 
