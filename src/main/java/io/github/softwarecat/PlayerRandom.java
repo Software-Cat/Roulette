@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class RandomPlayer extends Player {
+public class PlayerRandom extends Player {
 
     protected static final int BET_AMOUNT = Game.TABLE_MINIMUM;
 
@@ -36,7 +36,7 @@ public class RandomPlayer extends Player {
 
     protected final List<Outcome> ALL_OUTCOMES;
 
-    public RandomPlayer(Table table, Random rng) {
+    public PlayerRandom(Table table, Random rng) {
         super(table);
         RNG = rng;
         ALL_OUTCOMES = new ArrayList<>(table.wheel.allOutcomes.values());
@@ -48,7 +48,7 @@ public class RandomPlayer extends Player {
      *
      * @param table the table to use
      */
-    public RandomPlayer(Table table) {
+    public PlayerRandom(Table table) {
         this(table, new Random());
     }
 
