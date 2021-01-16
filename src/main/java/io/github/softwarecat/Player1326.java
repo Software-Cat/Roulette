@@ -75,16 +75,21 @@ public class Player1326 extends Player {
 
         protected int multiplier;
 
-        public State(Player1326 player, int multiplier) {
+        protected State nextStateWin;
+
+        public State(Player1326 player, int multiplier, State nextStateWin) {
             this.player = player;
             this.multiplier = multiplier;
+            this.nextStateWin = nextStateWin;
         }
 
         public Bet currentBet() {
             return new Bet(player.baseBet * multiplier, player.OUTCOME, player);
         }
 
-        public abstract State nextWon();
+        public State nextWon() {
+            return nextStateWin;
+        }
 
         public State nextLost() {
             return new NoWins(player);
@@ -94,48 +99,28 @@ public class Player1326 extends Player {
     protected class NoWins extends State {
 
         public NoWins(Player1326 player) {
-            super(player, 1);
-        }
-
-        @Override
-        public State nextWon() {
-            return new OneWin(player);
+            super(player, 1, new OneWin(player));
         }
     }
 
     protected class OneWin extends State {
 
         public OneWin(Player1326 player) {
-            super(player, 3);
-        }
-
-        @Override
-        public State nextWon() {
-            return new TwoWins(player);
+            super(player, 3, new TwoWins(player));
         }
     }
 
     protected class TwoWins extends State {
 
         public TwoWins(Player1326 player) {
-            super(player, 2);
-        }
-
-        @Override
-        public State nextWon() {
-            return new ThreeWins(player);
+            super(player, 2, new ThreeWins(player));
         }
     }
 
     protected class ThreeWins extends State {
 
         public ThreeWins(Player1326 player) {
-            super(player, 6);
-        }
-
-        @Override
-        public State nextWon() {
-            return new NoWins(player);
+            super(player, 6, new NoWins(player));
         }
     }
 }
