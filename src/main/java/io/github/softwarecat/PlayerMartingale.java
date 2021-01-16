@@ -31,7 +31,9 @@ package io.github.softwarecat;
 public class PlayerMartingale extends Player {
 
     protected final Outcome BLACK;
-    protected int BASE_BET = Game.TABLE_MINIMUM;
+
+    protected int baseBet = Game.TABLE_MINIMUM;
+
     /**
      * The number of losses. This is the number of times to double the bet.
      */
@@ -45,18 +47,18 @@ public class PlayerMartingale extends Player {
 
     /**
      * Constructs the Player with a specific Table for placing Bets.
-     * Since the table has access to the Wheel, we can use this wheel to extract Outcome objects.
+     * Since the table has access to the Wheel, we can use this WHEEL to extract Outcome objects.
      *
      * @param table the table to use
      */
     public PlayerMartingale(Table table) {
         super(table);
-        BLACK = table.wheel.getOutcomes(Game.BET_NAMES.getString("black")).get(0);
+        BLACK = table.WHEEL.getOutcomes(Game.BET_NAMES.getString("black")).get(0);
     }
 
     @Override
     public boolean playing() {
-        return (BASE_BET * betMultiple <= stake) && (roundsToGo > 0);
+        return (baseBet * betMultiple <= stake) && (roundsToGo > 0);
     }
 
     /**
@@ -66,7 +68,7 @@ public class PlayerMartingale extends Player {
      */
     @Override
     public void placeBets() throws InvalidBetException {
-        table.placeBet(new Bet(BASE_BET * betMultiple, BLACK, this));
+        table.placeBet(new Bet(baseBet * betMultiple, BLACK, this));
     }
 
     @Override
