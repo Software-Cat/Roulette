@@ -24,6 +24,9 @@
 
 package io.github.softwarecat;
 
+import io.github.softwarecat.player.OneThreeTwoSix;
+import io.github.softwarecat.player.Player;
+
 import java.util.Scanner;
 
 public class App {
@@ -34,7 +37,7 @@ public class App {
 
         Table table = new Table(wheel);
 
-        Player player = new Player1326(table);
+        Player player = new OneThreeTwoSix(table);
 
         Game game = new Game(wheel, table);
 

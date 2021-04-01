@@ -24,6 +24,8 @@
 
 package io.github.softwarecat;
 
+import io.github.softwarecat.player.Passenger57;
+import io.github.softwarecat.player.Player;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,7 +53,7 @@ public class GameTest {
         Table table = new Table(wheel);
 
         final boolean[] won = new boolean[1];
-        Player player = new PlayerPassenger57(table) {
+        Player player = new Passenger57(table) {
             @Override
             public void win(Bet bet) {
                 won[0] = true;

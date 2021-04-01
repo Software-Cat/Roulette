@@ -22,7 +22,12 @@
  * SOFTWARE.
  */
 
-package io.github.softwarecat;
+package io.github.softwarecat.player;
+
+import io.github.softwarecat.Bet;
+import io.github.softwarecat.InvalidBetException;
+import io.github.softwarecat.Outcome;
+import io.github.softwarecat.Table;
 
 import java.util.Set;
 
@@ -35,13 +40,13 @@ public abstract class Player {
     /**
      * The player’s current stake. Initialized to the player’s starting budget.
      */
-    protected int stake;
+    public int stake;
 
     /**
      * The number of rounds left to play. Initialized by the overall simulation control to the maximum number of rounds
      * to play.
      */
-    protected int roundsToGo;
+    public int roundsToGo;
 
     /**
      * The Table used to place individual Bets. The Table contains the current Wheel from which the player can

@@ -33,13 +33,11 @@ import java.util.*;
 public class Wheel {
 
     protected final Map<String, Outcome> ALL_OUTCOMES = new HashMap<>();
-
     /**
      * Contains the individual Bin instances.
      * This is always a 'new List( 38 )'.
      */
     private final List<Bin> BINS;
-
     /**
      * The random number generator to use to select a Bin from the bins collection.
      * This is not always simply ‘new java.util.Random()’. For testing, we would
@@ -70,6 +68,10 @@ public class Wheel {
         this.BINS = bins;
 
         this.RNG = rng;
+    }
+
+    public Map<String, Outcome> getAllOutcomes() {
+        return ALL_OUTCOMES;
     }
 
     /**

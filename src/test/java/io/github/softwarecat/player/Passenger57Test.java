@@ -22,29 +22,23 @@
  * SOFTWARE.
  */
 
-package io.github.softwarecat;
+package io.github.softwarecat.player;
 
+import io.github.softwarecat.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ListIterator;
-import java.util.Random;
 
 import static org.junit.Assert.*;
 
-public class PlayerRandomTest {
+public class Passenger57Test {
 
     Wheel wheel;
 
     Table table;
 
-    PlayerRandom player;
-
-    Random rng = new Random(1);
-
-    List<Outcome> ALL_OUTCOMES;
+    Player player;
 
     @Before
     public void setUp() {
@@ -52,11 +46,9 @@ public class PlayerRandomTest {
         BinBuilder binBuilder = new BinBuilder();
         binBuilder.buildBins(wheel);
 
-        ALL_OUTCOMES = new ArrayList<>(wheel.ALL_OUTCOMES.values());
-
         table = new Table(wheel);
 
-        player = new PlayerRandom(table, new Random(1));
+        player = new Passenger57(table);
         player.stake = 100;
     }
 
@@ -76,27 +68,16 @@ public class PlayerRandomTest {
 
     @Test
     public void placeBets() {
-        for (int i = 0; i < 1000; i++) {
-            // Generate expected outcome with known RNG
-            Outcome expectedOutcome = ALL_OUTCOMES.get(rng.nextInt(ALL_OUTCOMES.size()));
-            Bet expectedBet = new Bet(player.baseBet, expectedOutcome, player);
+        try {
+            player.placeBets();
+        } catch (InvalidBetException e) {
+            fail("Player should not throw invalid bet exception");
+        }
 
-            // Player bet placing
-            player.stake = player.baseBet;
-            try {
-                player.placeBets();
-            } catch (InvalidBetException e) {
-                fail("Player should not fail in placing bet");
-            }
-
-            // Get the bet player placed
-            Bet actualBet = table.iterator().next();
-            for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
-                it.next();
-                it.remove();
-            }
-
-            assertEquals(expectedBet, actualBet);
+        for (ListIterator<Bet> it = table.iterator(); it.hasNext(); ) {
+            Bet bet = it.next();
+            assertEquals(player, bet.parent);
+            assertEquals(wheel.getOutcomes(Game.BET_NAMES.getString("black")).get(0), bet.outcome);
         }
     }
 }

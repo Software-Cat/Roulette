@@ -22,16 +22,18 @@
  * SOFTWARE.
  */
 
-package io.github.softwarecat;
+package io.github.softwarecat.player;
+
+import io.github.softwarecat.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 /**
- * PlayerRandom is a Player who places bets in Roulette. This player makes random bets around the layout.
+ * RandomChoice is a Player who places bets in Roulette. This player makes random bets around the layout.
  */
-public class PlayerRandom extends Player {
+public class RandomChoice extends Player {
 
     /**
      * A Random Number Generator which will return the next random number.
@@ -58,10 +60,10 @@ public class PlayerRandom extends Player {
      * @param table the Table which will accept the bests
      * @param rng   the random number generator
      */
-    public PlayerRandom(Table table, Random rng) {
+    public RandomChoice(Table table, Random rng) {
         super(table);
         RNG = rng;
-        ALL_OUTCOMES = new ArrayList<>(table.WHEEL.ALL_OUTCOMES.values());
+        ALL_OUTCOMES = new ArrayList<>(table.WHEEL.getAllOutcomes().values());
     }
 
     /**
@@ -74,7 +76,7 @@ public class PlayerRandom extends Player {
      *
      * @param table the Table which will accept the bests
      */
-    public PlayerRandom(Table table) {
+    public RandomChoice(Table table) {
         this(table, new Random());
     }
 

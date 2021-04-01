@@ -22,8 +22,9 @@
  * SOFTWARE.
  */
 
-package io.github.softwarecat;
+package io.github.softwarecat.player;
 
+import io.github.softwarecat.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,13 +34,13 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class PlayerSevenRedsTest {
+public class SevenRedsTest {
 
     Outcome RED;
     Outcome BLACK;
     Wheel wheel;
     Table table;
-    PlayerSevenReds player;
+    SevenReds player;
 
     @Before
     public void setUp() {
@@ -49,7 +50,7 @@ public class PlayerSevenRedsTest {
 
         table = new Table(wheel);
 
-        player = new PlayerSevenReds(table);
+        player = new SevenReds(table);
         player.stake = 100;
 
         RED = wheel.getOutcomes(Game.BET_NAMES.getString("red")).get(0);

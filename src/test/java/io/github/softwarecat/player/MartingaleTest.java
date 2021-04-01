@@ -22,8 +22,9 @@
  * SOFTWARE.
  */
 
-package io.github.softwarecat;
+package io.github.softwarecat.player;
 
+import io.github.softwarecat.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,13 +32,13 @@ import java.util.ListIterator;
 
 import static org.junit.Assert.*;
 
-public class PlayerMartingaleTest {
+public class MartingaleTest {
 
     Wheel wheel;
 
     Table table;
 
-    PlayerMartingale player;
+    Martingale player;
 
     @Before
     public void setUp() {
@@ -46,7 +47,7 @@ public class PlayerMartingaleTest {
         binBuilder.buildBins(wheel);
 
         table = new Table(wheel);
-        player = new PlayerMartingale(table);
+        player = new Martingale(table);
         player.stake = 100;
     }
 

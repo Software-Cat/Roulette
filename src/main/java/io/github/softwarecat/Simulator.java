@@ -24,6 +24,8 @@
 
 package io.github.softwarecat;
 
+import io.github.softwarecat.player.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 

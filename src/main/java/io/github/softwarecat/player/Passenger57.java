@@ -22,26 +22,19 @@
  * SOFTWARE.
  */
 
-package io.github.softwarecat;
+package io.github.softwarecat.player;
 
-import java.util.Set;
+import io.github.softwarecat.*;
 
 /**
- * PlayerSevenReds is a PlayerMartingale player who places bets in Roulette. This player waits until the wheel has spun red
- * seven times in a row before betting black.
+ * Passenger57 constructs a Bet based on the Outcome named "Black".
+ * This is a very persistent player indeed.
  */
-public class PlayerSevenReds extends PlayerMartingale {
+public class Passenger57 extends Player {
 
-    /**
-     * The Outcome Red.
-     */
-    protected final Outcome RED;
+    protected final Outcome BLACK;
 
-    /**
-     * The number of reds yet to go. This starts at 7 , is reset to 7 on each non-red outcome, and decrements by 1 on
-     * each red outcome.
-     */
-    protected int redCount = 0;
+    protected int baseBet = Game.TABLE_MINIMUM;
 
     /**
      * Constructs the Player with a specific Table for placing Bets.
@@ -49,41 +42,38 @@ public class PlayerSevenReds extends PlayerMartingale {
      *
      * @param table the table to use
      */
-    public PlayerSevenReds(Table table) {
+    public Passenger57(Table table) {
         super(table);
-        RED = table.WHEEL.getOutcomes(Game.BET_NAMES.getString("red")).get(0);
+
+        BLACK = table.WHEEL.getOutcomes(Game.BET_NAMES.getString("black")).get(0);
     }
 
-    /**
-     * If redCount is zero, this places a bet on black, using the bet multiplier.
-     *
-     * @throws InvalidBetException if the Player attempts to place a bet which exceeds the table’s limit
-     */
+    public int getBaseBet() {
+        return baseBet;
+    }
+
+    @Override
+    public boolean playing() {
+        return (stake >= baseBet) && (roundsToGo > 0);
+    }
+
     @Override
     public void placeBets() throws InvalidBetException {
-        if (redCount >= 7) {
-            super.placeBets();
-        }
-    }
-
-    /**
-     * This is notification from the Game of all the winning outcomes. If this vector includes red, redCount is
-     * decremented. Otherwise, redCount is reset to 7.
-     *
-     * @param outcomes the Outcome set from a Bin
-     */
-    @Override
-    public void notifyWinners(Set<Outcome> outcomes) {
-        if (outcomes.contains(RED)) {
-            redCount++;
-        } else {
-            redCount = 0;
-        }
+        table.placeBet(new Bet(baseBet, BLACK, this));
     }
 
     @Override
     public void newRound() {
-        super.newRound();
-        redCount = 0;
+
+    }
+
+    @Override
+    public void win(Bet bet) {
+        super.win(bet);
+    }
+
+    @Override
+    public void lose(Bet bet) {
+        super.lose(bet);
     }
 }

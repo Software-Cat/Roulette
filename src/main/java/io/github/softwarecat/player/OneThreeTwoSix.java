@@ -22,18 +22,20 @@
  * SOFTWARE.
  */
 
-package io.github.softwarecat;
+package io.github.softwarecat.player;
 
+
+import io.github.softwarecat.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Player1326 follows the 1-3-2-6 betting system. The player has a preferred Outcome, an even money bet like red,
+ * OneThreeTwoSix follows the 1-3-2-6 betting system. The player has a preferred Outcome, an even money bet like red,
  * black, even, odd, high or low. The player also has a current betting state that determines the current bet to place, and
  * what next state applies when the bet has won or lost.
  */
-public class Player1326 extends Player {
+public class OneThreeTwoSix extends Player {
 
     /**
      * This is the player’s preferred Outcome. During construction, the Player must fetch this from the Wheel.
@@ -52,7 +54,7 @@ public class Player1326 extends Player {
 
     /**
      * This is the current state of the 1-3-2-6 betting system. It will be an instance of a subclass of
-     * Player1326.State. This will be one of the four states: No Wins, One Win, Two Wins or Three Wins.
+     * OneThreeTwoSix.State. This will be one of the four states: No Wins, One Win, Two Wins or Three Wins.
      */
     protected State state;
 
@@ -62,7 +64,7 @@ public class Player1326 extends Player {
      *
      * @param table the table to use
      */
-    public Player1326(Table table) {
+    public OneThreeTwoSix(Table table) {
         super(table);
 
         OUTCOME = table.WHEEL.getOutcomes(Game.BET_NAMES.getString("black")).get(0);
@@ -146,7 +148,7 @@ public class Player1326 extends Player {
         /**
          * The Player.
          */
-        protected Player1326 player;
+        protected OneThreeTwoSix player;
 
         /**
          * Create a new mapping from the class name to object instance. There are only four objects, so this is relatively
@@ -154,7 +156,7 @@ public class Player1326 extends Player {
          *
          * @param player the player to create the states for
          */
-        public StateFactory(Player1326 player) {
+        public StateFactory(OneThreeTwoSix player) {
             this.player = player;
         }
 
@@ -188,15 +190,15 @@ public class Player1326 extends Player {
     }
 
     /**
-     * Player1326.State is the superclass for all of the states in the 1-3-2-6 betting system.
+     * OneThreeTwoSix.State is the superclass for all of the states in the 1-3-2-6 betting system.
      */
     protected abstract class State {
 
         /**
-         * The Player1326 player who is currently in this state. This player will be used to provide the Outcome that
+         * The OneThreeTwoSix player who is currently in this state. This player will be used to provide the Outcome that
          * will be used to create the Bet.
          */
-        protected Player1326 player;
+        protected OneThreeTwoSix player;
 
         /**
          * The multiplier to multiply the base bet with.
@@ -204,13 +206,13 @@ public class Player1326 extends Player {
         protected int multiplier;
 
         /**
-         * The constructor for this class saves the Player1326 which will be used to provide the Outcome on which
+         * The constructor for this class saves the OneThreeTwoSix which will be used to provide the Outcome on which
          * we will bet.
          *
          * @param player     the player
          * @param multiplier the multiplier
          */
-        public State(Player1326 player, int multiplier) {
+        public State(OneThreeTwoSix player, int multiplier) {
             this.player = player;
             this.multiplier = multiplier;
         }
@@ -226,15 +228,15 @@ public class Player1326 extends Player {
         }
 
         /**
-         * Constructs the new Player1326.State instance to be used when the bet was a winner.
+         * Constructs the new OneThreeTwoSix.State instance to be used when the bet was a winner.
          *
          * @return the state
          */
         public abstract State nextWon();
 
         /**
-         * Constructs the new Player1326.State instance to be used when the bet was a loser. This method is the same
-         * for each subclass: it creates a new instance of Player1326.NoWins.
+         * Constructs the new OneThreeTwoSix.State instance to be used when the bet was a loser. This method is the same
+         * for each subclass: it creates a new instance of OneThreeTwoSix.NoWins.
          *
          * @return the state
          */
@@ -244,7 +246,7 @@ public class Player1326 extends Player {
     }
 
     /**
-     * Player1326.NoWins defines the bet and state transition rules in the 1-3-2-6 betting system. When there are no wins,
+     * OneThreeTwoSix.NoWins defines the bet and state transition rules in the 1-3-2-6 betting system. When there are no wins,
      * the base bet value of 1 is used.
      */
     protected class NoWins extends State {
@@ -254,7 +256,7 @@ public class Player1326 extends Player {
          *
          * @param player the player
          */
-        public NoWins(Player1326 player) {
+        public NoWins(OneThreeTwoSix player) {
             super(player, 1);
         }
 
@@ -265,7 +267,7 @@ public class Player1326 extends Player {
     }
 
     /**
-     * Player1326.OneWin defines the bet and state transition rules in the 1-3-2-6 betting system. When there is one wins,
+     * OneThreeTwoSix.OneWin defines the bet and state transition rules in the 1-3-2-6 betting system. When there is one wins,
      * the base bet value of 3 is used.
      */
     protected class OneWin extends State {
@@ -275,7 +277,7 @@ public class Player1326 extends Player {
          *
          * @param player the player
          */
-        public OneWin(Player1326 player) {
+        public OneWin(OneThreeTwoSix player) {
             super(player, 3);
         }
 
@@ -286,7 +288,7 @@ public class Player1326 extends Player {
     }
 
     /**
-     * Player1326.TwoWins defines the bet and state transition rules in the 1-3-2-6 betting system. When there are two
+     * OneThreeTwoSix.TwoWins defines the bet and state transition rules in the 1-3-2-6 betting system. When there are two
      * wins, the base bet value of 2 is used.
      */
     protected class TwoWins extends State {
@@ -296,7 +298,7 @@ public class Player1326 extends Player {
          *
          * @param player the player
          */
-        public TwoWins(Player1326 player) {
+        public TwoWins(OneThreeTwoSix player) {
             super(player, 2);
         }
 
@@ -307,7 +309,7 @@ public class Player1326 extends Player {
     }
 
     /**
-     * Player1326.ThreeWins defines the bet and state transition rules in the 1-3-2-6 betting system. When there are
+     * OneThreeTwoSix.ThreeWins defines the bet and state transition rules in the 1-3-2-6 betting system. When there are
      * three wins, the base bet value of 6 is used.
      */
     protected class ThreeWins extends State {
@@ -317,7 +319,7 @@ public class Player1326 extends Player {
          *
          * @param player the player
          */
-        public ThreeWins(Player1326 player) {
+        public ThreeWins(OneThreeTwoSix player) {
             super(player, 6);
         }
 

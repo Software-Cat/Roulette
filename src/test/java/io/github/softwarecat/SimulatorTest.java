@@ -24,6 +24,7 @@
 
 package io.github.softwarecat;
 
+import io.github.softwarecat.player.Passenger57;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,7 +42,7 @@ public class SimulatorTest {
 
     Table table;
 
-    PlayerPassenger57 player;
+    Passenger57 player;
 
     Game game;
 
@@ -59,7 +60,7 @@ public class SimulatorTest {
 
         table = new Table(wheel);
 
-        player = new PlayerPassenger57(table);
+        player = new Passenger57(table);
 
         game = new Game(wheel, table);
 
@@ -83,9 +84,9 @@ public class SimulatorTest {
             boolean shouldWin = winningBin.contains(wheel.getOutcomes(Game.BET_NAMES.getString("black")).get(0));
 
             if (shouldWin) {
-                expectedStake += player.baseBet;
+                expectedStake += player.getBaseBet();
             } else {
-                expectedStake -= player.baseBet;
+                expectedStake -= player.getBaseBet();
             }
 
             assertEquals(expectedStake, result);

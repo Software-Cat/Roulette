@@ -22,8 +22,9 @@
  * SOFTWARE.
  */
 
-package io.github.softwarecat;
+package io.github.softwarecat.player;
 
+import io.github.softwarecat.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,13 +34,13 @@ import java.util.ListIterator;
 
 import static org.junit.Assert.*;
 
-public class Player1326Test {
+public class OneThreeTwoSixTest {
 
     Wheel wheel;
 
     Table table;
 
-    Player1326 player;
+    OneThreeTwoSix player;
 
     @Before
     public void setUp() {
@@ -49,7 +50,7 @@ public class Player1326Test {
 
         table = new Table(wheel);
 
-        player = new Player1326(table);
+        player = new OneThreeTwoSix(table);
         player.stake = 100;
         player.roundsToGo = 250;
     }
@@ -156,49 +157,49 @@ public class Player1326Test {
     public void win() {
         // NoWins to OneWin
         player.win(new Bet(1, new Outcome("Name", 1), player));
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.ONE_WIN), player.state);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.ONE_WIN), player.state);
 
         // OneWin to TwoWins
         player.win(new Bet(1, new Outcome("Name", 1), player));
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.TWO_WINS), player.state);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.TWO_WINS), player.state);
 
         // TwoWins to ThreeWins
         player.win(new Bet(1, new Outcome("Name", 1), player));
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.THREE_WINS), player.state);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.THREE_WINS), player.state);
 
         // ThreeWins to NoWins
         player.win(new Bet(1, new Outcome("Name", 1), player));
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.NO_WINS), player.state);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.NO_WINS), player.state);
     }
 
     @Test
     public void lose() {
         // NoWins to NoWins
-        player.state = player.STATE_FACTORY.getState(Player1326.StateType.NO_WINS);
+        player.state = player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.NO_WINS);
         player.lose(new Bet(1, new Outcome("Name", 1), player));
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.NO_WINS), player.state);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.NO_WINS), player.state);
 
         // OneWin to NoWins
-        player.state = player.STATE_FACTORY.getState(Player1326.StateType.ONE_WIN);
+        player.state = player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.ONE_WIN);
         player.lose(new Bet(1, new Outcome("Name", 1), player));
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.NO_WINS), player.state);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.NO_WINS), player.state);
 
         // TwoWins to NoWins
-        player.state = player.STATE_FACTORY.getState(Player1326.StateType.TWO_WINS);
+        player.state = player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.TWO_WINS);
         player.lose(new Bet(1, new Outcome("Name", 1), player));
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.NO_WINS), player.state);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.NO_WINS), player.state);
 
         // ThreeWins to NoWins
-        player.state = player.STATE_FACTORY.getState(Player1326.StateType.THREE_WINS);
+        player.state = player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.THREE_WINS);
         player.lose(new Bet(1, new Outcome("Name", 1), player));
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.NO_WINS), player.state);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.NO_WINS), player.state);
     }
 
     @Test
     public void state() {
-        Player1326.State state = player.new State(player, 2) {
+        OneThreeTwoSix.State state = player.new State(player, 2) {
             @Override
-            public Player1326.State nextWon() {
+            public OneThreeTwoSix.State nextWon() {
                 return null;
             }
         };
@@ -210,49 +211,49 @@ public class Player1326Test {
         // Check methods
         assertEquals(new Bet(player.baseBet * 2, player.OUTCOME, player), state.currentBet());
 
-        assertEquals(state.nextLost(), player.STATE_FACTORY.getState(Player1326.StateType.NO_WINS));
+        assertEquals(state.nextLost(), player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.NO_WINS));
     }
 
     @Test
     public void stateFactory() {
         // Correct state is retrieved
-        assertTrue(player.STATE_FACTORY.getState(Player1326.StateType.NO_WINS) instanceof Player1326.NoWins);
-        assertTrue(player.STATE_FACTORY.getState(Player1326.StateType.ONE_WIN) instanceof Player1326.OneWin);
-        assertTrue(player.STATE_FACTORY.getState(Player1326.StateType.TWO_WINS) instanceof Player1326.TwoWins);
-        assertTrue(player.STATE_FACTORY.getState(Player1326.StateType.THREE_WINS) instanceof Player1326.ThreeWins);
+        assertTrue(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.NO_WINS) instanceof OneThreeTwoSix.NoWins);
+        assertTrue(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.ONE_WIN) instanceof OneThreeTwoSix.OneWin);
+        assertTrue(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.TWO_WINS) instanceof OneThreeTwoSix.TwoWins);
+        assertTrue(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.THREE_WINS) instanceof OneThreeTwoSix.ThreeWins);
 
-        for (Player1326.StateType type : Player1326.StateType.values()) {
+        for (OneThreeTwoSix.StateType type : OneThreeTwoSix.StateType.values()) {
             assertEquals(player.STATE_FACTORY.getState(type), player.STATE_FACTORY.states.get(type));
         }
 
         // All states reference the correct player
-        for (Player1326.StateType type : Player1326.StateType.values()) {
+        for (OneThreeTwoSix.StateType type : OneThreeTwoSix.StateType.values()) {
             assertEquals(player, player.STATE_FACTORY.getState(type).player);
         }
     }
 
     @Test
     public void noWins() {
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.NO_WINS).player, player);
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.NO_WINS).multiplier, 1);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.NO_WINS).player, player);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.NO_WINS).multiplier, 1);
     }
 
     @Test
     public void oneWin() {
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.ONE_WIN).player, player);
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.ONE_WIN).multiplier, 3);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.ONE_WIN).player, player);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.ONE_WIN).multiplier, 3);
     }
 
     @Test
     public void twoWins() {
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.TWO_WINS).player, player);
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.TWO_WINS).multiplier, 2);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.TWO_WINS).player, player);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.TWO_WINS).multiplier, 2);
     }
 
     @Test
     public void threeWins() {
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.THREE_WINS).player, player);
-        assertEquals(player.STATE_FACTORY.getState(Player1326.StateType.THREE_WINS).multiplier, 6);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.THREE_WINS).player, player);
+        assertEquals(player.STATE_FACTORY.getState(OneThreeTwoSix.StateType.THREE_WINS).multiplier, 6);
     }
 
     protected List<Bet> getBets() {

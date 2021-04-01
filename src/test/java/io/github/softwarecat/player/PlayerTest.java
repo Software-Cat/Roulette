@@ -22,8 +22,9 @@
  * SOFTWARE.
  */
 
-package io.github.softwarecat;
+package io.github.softwarecat.player;
 
+import io.github.softwarecat.*;
 import org.junit.Before;
 import org.junit.Test;
 
