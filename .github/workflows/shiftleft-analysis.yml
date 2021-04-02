@@ -32,7 +32,7 @@ jobs:
     # 2. Compile or build the project before invoking scan
     #    Example: mvn compile, or npm install or pip install goes here
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B compile --file pom.xml
 
     # 3. Invoke Scan with the github token. Leave the workspace empty to use relative url
     - name: Perform Scan
