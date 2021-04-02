@@ -1,0 +1,15 @@
+name: "CodeQL"
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ master ]
+  schedule:
+    - cron: '19 14 * * 6'
+
+jobs:
+  codecov:
+    - name: Codecov
+      uses: codecov/codecov-action@v1.3.1
