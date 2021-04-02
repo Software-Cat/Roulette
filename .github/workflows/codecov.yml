@@ -11,5 +11,9 @@ on:
 
 jobs:
   codecov:
+    name: Codecov
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
     - name: Codecov
       uses: codecov/codecov-action@v1.3.1
