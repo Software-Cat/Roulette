@@ -95,4 +95,9 @@ public class RandomChoice extends Player {
         Outcome outcomeToBet = ALL_OUTCOMES.get(RNG.nextInt(ALL_OUTCOMES.size()));
         table.placeBet(new Bet(baseBet, outcomeToBet, this));
     }
+
+    @Override
+    public void newRound() {
+
+    }
 }
