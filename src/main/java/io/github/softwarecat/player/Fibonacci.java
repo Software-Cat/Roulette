@@ -24,33 +24,85 @@
 
 package io.github.softwarecat.player;
 
-import io.github.softwarecat.InvalidBetException;
-import io.github.softwarecat.Table;
+import io.github.softwarecat.*;
 
+/**
+ * Fibonacci uses the Fibonacci betting system. This player allocates their available budget into a sequence
+ * of bets that have an accelerating potential gain.
+ */
 public class Fibonacci extends Player {
 
     /**
-     * Constructs the Player with a specific Table for placing Bets.
-     * Since the table has access to the Wheel, we can use this wheel to extract Outcome objects.
+     * This is the player’s preferred Outcome.
+     */
+    protected final Outcome BLACK;
+
+    /**
+     * This is the most recent bet amount. Initially, this is 1.
+     */
+    protected int current = 1;
+
+    /**
+     * This is the bet amount previous to the most recent bet amount. Initially, this is zero.
+     */
+    protected int previous = 0;
+
+    /**
+     * Initialize the Fibonacci player.
      *
      * @param table the table to use
      */
     public Fibonacci(Table table) {
         super(table);
+
+        BLACK = table.WHEEL.getOutcomes(Game.BET_NAMES.getString("black")).get(0);
     }
 
     @Override
     public boolean playing() {
-        return false;
+        return (current <= stake) && (roundsToGo > 0);
     }
 
     @Override
     public void placeBets() throws InvalidBetException {
-
+        table.placeBet(new Bet(current, BLACK, this));
     }
 
     @Override
     public void newRound() {
+        current = 1;
+        previous = 0;
+    }
 
+    /**
+     * Uses the superclass method to update the stake with an amount won. It resets recent and previous to their
+     * initial values of 1 and 0.
+     *
+     * @param bet the bet which won
+     */
+    @Override
+    public void win(Bet bet) {
+        super.win(bet);
+
+        current = 1;
+        previous = 0;
+    }
+
+    /**
+     * Uses the superclass method to update the stake with an amount lost. This will go “forwards” in the sequence. It
+     * updates recent and previous as follows.<p>
+     * next -> recent + previous<p>
+     * previous -> recent<p>
+     * recent -> next<p>
+     *
+     * @param bet the bet which lost
+     */
+    @Override
+    public void lose(Bet bet) {
+        super.lose(bet);
+
+        int next = current + previous;
+        previous = current;
+        current = next;
     }
 }
