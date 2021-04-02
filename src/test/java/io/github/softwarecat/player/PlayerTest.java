@@ -56,6 +56,11 @@ public class PlayerTest {
             public void placeBets() {
 
             }
+
+            @Override
+            public void newRound() {
+
+            }
         };
         player.stake = 100;
     }
