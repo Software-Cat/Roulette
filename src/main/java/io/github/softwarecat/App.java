@@ -24,7 +24,7 @@
 
 package io.github.softwarecat;
 
-import io.github.softwarecat.player.Cancellation;
+import io.github.softwarecat.player.Fibonacci;
 import io.github.softwarecat.player.Player;
 
 import java.util.Scanner;
@@ -37,7 +37,7 @@ public class App {
 
         Table table = new Table(wheel);
 
-        Player player = new Cancellation(table);
+        Player player = new Fibonacci(table);
 
         Game game = new Game(wheel, table);
 
