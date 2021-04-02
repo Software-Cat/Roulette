@@ -77,6 +77,11 @@ public class Cancellation extends Player {
         table.placeBet(bet);
     }
 
+    @Override
+    public void newRound() {
+        resetSequence();
+    }
+
     /**
      * Uses the superclass method to update the stake with an amount won. It then removes the fist and last element
      * from sequence.

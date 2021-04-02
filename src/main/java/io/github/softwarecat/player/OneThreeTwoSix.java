@@ -88,6 +88,11 @@ public class OneThreeTwoSix extends Player {
         table.placeBet(state.currentBet());
     }
 
+    @Override
+    public void newRound() {
+        state = new NoWins(this);
+    }
+
     /**
      * Uses the superclass method to update the stake with an amount won. Uses the current state to determine what
      * the next state will be by calling state‘s objects nextWon() method and saving the new state in state

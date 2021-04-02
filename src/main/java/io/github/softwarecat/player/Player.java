@@ -91,9 +91,7 @@ public abstract class Player {
     /**
      * Informs the Player that a new round has started and it should reset all its attributes.
      */
-    public void newRound() {
-
-    }
+    public abstract void newRound();
 
     /**
      * Notification from the Game that the Bet was a winner. The amount of money won is available via bet method
