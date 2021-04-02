@@ -24,12 +24,16 @@
 
 package io.github.softwarecat;
 
-import io.github.softwarecat.player.Fibonacci;
 import io.github.softwarecat.player.Player;
+import io.github.softwarecat.player.PlayerFactory;
+import io.github.softwarecat.player.PlayerType;
 
 import java.util.Scanner;
 
 public class App {
+
+    protected static final Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         Wheel wheel = new Wheel();
         BinBuilder binBuilder = new BinBuilder();
@@ -37,22 +41,22 @@ public class App {
 
         Table table = new Table(wheel);
 
-        Player player = new Fibonacci(table);
+        System.out.print("Player Type: ");
+        String playerType = scanner.nextLine();
+        Player player = PlayerFactory.getPlayer(PlayerType.valueOf(playerType), table);
 
         Game game = new Game(wheel, table);
 
         Simulator simulator = new Simulator(game, player);
 
-        try (Scanner scanner = new Scanner(System.in)) {
-            System.out.print("Session Duration: ");
-            simulator.sessionDuration = Integer.parseInt(scanner.nextLine());
+        System.out.print("Session Duration: ");
+        simulator.sessionDuration = Integer.parseInt(scanner.nextLine());
 
-            System.out.print("Initial Stake: ");
-            simulator.initialStake = Integer.parseInt(scanner.nextLine());
+        System.out.print("Initial Stake: ");
+        simulator.initialStake = Integer.parseInt(scanner.nextLine());
 
-            System.out.print("Samples: ");
-            simulator.samples = Integer.parseInt(scanner.nextLine());
-        }
+        System.out.print("Samples: ");
+        simulator.samples = Integer.parseInt(scanner.nextLine());
 
         try {
             simulator.gather();
